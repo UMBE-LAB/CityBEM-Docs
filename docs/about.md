@@ -1,7 +1,7 @@
 # 👥 About Us
 
 <div align="center">
-  <img src="assets/about_us.png" alt="About Us" width="25%">
+  <img src="../assets/aboutus.png" alt="About Us" width="30%">
 </div>
 
 ---
