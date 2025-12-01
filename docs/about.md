@@ -31,7 +31,7 @@
 
   <!-- RIGHT: PHOTO -->
   <div style="flex: 0 0 120px; text-align: center;">
-    <img src="/assets/saeed_photo.png" alt="Saeed Rayegan"
+    <img src="../assets/saeed_photo.png" alt="Saeed Rayegan"
        style="width: 120px; height: 120px; object-fit: cover; border-radius: 14px;">
   </div>
 

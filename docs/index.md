@@ -5,13 +5,13 @@ Welcome to the official documentation of CityBEM V2 — an advanced, lightweight
 ### CityBEM Overview
 
 <div align="center">
-  <img src="/assets/citybem_overview.png" alt="City-scale simulation example" width="100%">
+  <img src="../assets/citybem_overview.png" alt="City-scale simulation example" width="100%">
 </div>
 
 ---
 
 <div align="center">
-  <img src="/assets/citybem_overview2.png" alt="City-scale simulation example" width="100%">
+  <img src="../assets/citybem_overview2.png" alt="City-scale simulation example" width="100%">
 </div>
 
 ---
@@ -88,8 +88,6 @@ Welcome to the official documentation of CityBEM V2 — an advanced, lightweight
   Cite CityBEM V2 in your research and explore related studies.
 
 </div>
-
----
 
 ## 🔍 How to Navigate
 
