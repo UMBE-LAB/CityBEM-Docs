@@ -7,7 +7,7 @@ The **figure below** presents the overall CityBEM V2 workflow, illustrating how 
 <hr>
 
 <div align="center">
-  <img src="../assets/citybem_workflow.png" alt="CityBEM Workflow Diagram" width="100%">
+  <img src="assets/citybem_workflow.png" alt="CityBEM Workflow Diagram" width="100%">
 </div>
 
 <hr>
@@ -517,7 +517,7 @@ Each row represents a **material type** commonly used in regional construction (
 ### **`Input_weatherdata.txt`**
 
 <div align="center">
-  <img src="../assets/input_weatherdata.png" alt="Weather Data Example" width="120%">
+  <img src="/assets/input_weatherdata.png" alt="Weather Data Example" width="120%">
 </div>
 
 ---
