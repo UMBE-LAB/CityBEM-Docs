@@ -84,7 +84,7 @@ However, for very large geometries (50k–300k+ buildings), **parallel execution
 
 ## 🧵 4. Parallel Multi-Directory Workflow (Recommended)
 
-To run several segments of a city in parallel:
+To run several segments of a large urban area in parallel:
 
 ### **Step 1 — Divide the geometry**
 Split your STL geometry into multiple segments, e.g.:
