@@ -21,7 +21,7 @@ The model incorporates:
 * Coupling with PV and microclimate modules
 
 <div align="center">
-  <img src="/assets/building_thermal_modeling.png" alt="Building thermal modeling schematic" width="90%">
+  <img src="../assets/building_thermal_modeling.png" alt="Building thermal modeling schematic" width="90%">
 </div>
 
 ---
