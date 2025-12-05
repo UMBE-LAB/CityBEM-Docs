@@ -1,6 +1,6 @@
 # CityBEM: From Inputs to City Energy Results
 
-## 1. Workflow Overview
+## Workflow Overview
 
 The **figure below** presents the overall CityBEM V2 workflow, illustrating how diverse geospatial, archetype, and material datasets are integrated and processed into unified **citywide building data arrays**.
 
@@ -11,23 +11,23 @@ The **figure below** presents the overall CityBEM V2 workflow, illustrating how 
 
 This workflow captures the full input-management pipeline in CityBEM — from GIS preprocessing and archetype assignment to geometry extraction and simulation-ready data generation.
 
-### 1.1 Geospatial Matching (QGIS)
+### 1. Geospatial Matching (QGIS)
 !!! info ""
     🗺️ Integrates GIS building footprints with attributes such as height, land-use, construction year, and parcel data.
 
-### 1.2 Archetype Assignment
+### 2. Archetype Assignment
 !!! info ""
     🏢 Assigns thermal, material, occupancy, and HVAC characteristics to each building through archetype mapping.
 
-### 1.3 3D Geometry Processing
+### 3. 3D Geometry Processing
 !!! info ""
     📐 Computes surface geometry (area, tilt, azimuth, façade grouping, roof type) required for thermal and solar modeling.
 
-### 1.4 Weather Data Preparation
+### 4. Weather Data Preparation
 !!! info ""
     🌦️ Converts hourly meteorological data to the simulation time step and prepares dynamic boundary conditions.
 
-### 1.5 Citywide Building Data Arrays
+### 5. Citywide Building Data Arrays
 !!! info ""
     🧩 Builds optimized internal arrays for storing building attributes and driving the transient heat/mass balance solver.
 
@@ -35,7 +35,7 @@ Together, these components form a cohesive workflow enabling CityBEM V2 to perfo
 
 ---
 
-## 2. :material-database-import: Input Data Specification
+## :material-database-import: Input Data Specification
 
 CityBEM V2 operates using a structured collection of input files that define the full configuration of a city-scale building energy simulation.  
 These files specify the **building inventory**, **archetype definitions**, **material and thermal properties**, **meteorological conditions**, and **simulation control parameters** required by the framework.
@@ -51,9 +51,9 @@ This page provides a detailed description of each required input file, including
 
 ---
 
-## 3. :material-cube-outline: Building Geometry Input
+## 1. :material-cube-outline: Building Geometry Input
 
-### 3.1 ASCII STL Geometry  
+### 1.1 ASCII STL Geometry  
 
 `Input_City_scale_geometry_CityBEM.stl`
 
@@ -64,14 +64,14 @@ This page provides a detailed description of each required input file, including
 
 ---
 
-### 3.2 Purpose
+### 1.2 Purpose
 
 The geometry file defines the **3D building representation** for the UBEM domain in **ASCII STL** format.  
 Each building must be stored as an individual `solid` block to ensure clean building separation and accurate surface reconstruction.
 
 ---
 
-### 3.3 Coordinate system
+### 1.3 Coordinate system
 
 CityBEM uses a well-defined right-handed coordinate system:
 
@@ -89,7 +89,7 @@ Maintaining consistent coordinates ensures that solar, shading, and thermal calc
 
 ---
 
-### 3.4 STL Structure
+### 1.4 STL Structure
 
 - Each building is represented as a `solid` block.  
 - Inside each block, **triangular facets** define the building surfaces.  
@@ -100,7 +100,7 @@ This structure enables robust geometry interpretation for large building stocks.
 
 ---
 
-### 3.5 Preprocessing Workflow
+### 1.5 Preprocessing Workflow
 
 CityBEM includes a geometry-preprocessing tool that can:
 
@@ -119,7 +119,7 @@ This geometry file is foundational for:
 
 ---
 
-### :material-toolbox-outline: 3.6 Useful Tools
+### :material-toolbox-outline: 1.6 Useful Tools
 
 Below are recommended platforms to help users **generate, edit, or validate** building geometry before importing into CityBEM.  
 
@@ -154,16 +154,16 @@ Below are recommended platforms to help users **generate, edit, or validate** bu
 
 ---
 
-# 1. Building Stock Data
+## 2. Building Stock Input Data
 
-## 1.1 `Input_City_scale_building_info.txt`
+`Input_City_scale_building_info.txt`
 
 <figure markdown>
-  ![Weather Data Structure](assets/input_weatherdata.png){ width="100%" loading=lazy }
-  <figcaption>CityBEM hourly weather data format (EPW-derived)</figcaption>
+  ![City-scale building information input](assets/input_City_scale_building_info.png){ width="100%" loading=lazy }
+  <figcaption>Building information format</figcaption>
 </figure>
 
-### Purpose
+### 2.1 Purpose
 
 This file defines the **core metadata** for every building in the simulation domain. It acts as the **central index** that links:
 - GIS/OSM geometry
@@ -172,22 +172,141 @@ This file defines the **core metadata** for every building in the simulation dom
 
 Each row corresponds to **one building**.
 
-### Typical Columns and Their Roles
+### 2.2 Data Structure
 
-| Column | Description |
-|--------|-------------|
-| `building_id` | Unique internal ID used by CityBEM (integer or string). This ID must be consistent across all input and output files referencing buildings. |
-| `building_osm_id` | External GIS or OpenStreetMap identifier used for traceability and GIS post-processing. |
-| `year_of_construction` | Construction year or representative vintage. Used to map the building to a **construction-year archetype** (thermal envelope properties, infiltration, etc.). |
-| `usage_type_code` | Code that links the building to a **usage-type archetype** (occupancy, internal loads, schedules, HVAC). Must match IDs defined in `Input_City_scale_archetype_usage_type.txt`. |
-| `longitude`, `latitude` | Geographic coordinates (WGS84). Used for solar position and potential external GIS operations. |
+<div align="center">
 
-Depending on the case, additional columns can be included (e.g., number of floors, floor area), but the **minimum set** must at least allow:
-- Unambiguous building identification
-- Mapping to year and usage archetypes
-- Providing a location in space (for solar and microclimate coupling)
+<table>
+  <thead>
+    <tr>
+      <th><code>building_id</code></th>
+      <th><code>building_osm_id</code></th>
+      <th><code>year_of_construction</code></th>
+      <th><code>usage_type_code</code></th>
+      <th><code>longitude</code></th>
+      <th><code>latitude</code></th>
+    </tr>
+  </thead>
 
-### How CityBEM Uses This File
+  <tbody>
+
+    <tr>
+      <td><code>b0</code></td>
+      <td>1039384</td>
+      <td>1962</td>
+      <td>6000</td>
+      <td>-73.5688</td>
+      <td>45.5018</td>
+    </tr>
+
+    <tr>
+      <td><code>b1</code></td>
+      <td>5101155</td>
+      <td>1965</td>
+      <td>6821</td>
+      <td>-73.6128</td>
+      <td>45.5046</td>
+    </tr>
+
+    <tr>
+      <td><code>b2</code></td>
+      <td>5002562</td>
+      <td>1924</td>
+      <td>1000</td>
+      <td>-73.5842</td>
+      <td>45.5037</td>
+    </tr>
+
+    <tr>
+      <td><code>b3</code></td>
+      <td>999999</td>
+      <td>2000</td>
+      <td>1000</td>
+      <td>-73.5715</td>
+      <td>45.5044</td>
+    </tr>
+
+    <tr>
+      <td><code>b4</code></td>
+      <td>1005672</td>
+      <td>1922</td>
+      <td>1000</td>
+      <td>-73.5989</td>
+      <td>45.4926</td>
+    </tr>
+
+    <tr>
+      <td><code>b5</code></td>
+      <td>5227962</td>
+      <td>1991</td>
+      <td>6000</td>
+      <td>-73.5746</td>
+      <td>45.5023</td>
+    </tr>
+
+    <tr>
+      <td><code>b6</code></td>
+      <td>5262912</td>
+      <td>2017</td>
+      <td>1000</td>
+      <td>-73.5729</td>
+      <td>45.4954</td>
+    </tr>
+
+    <tr>
+      <td><code>b7</code></td>
+      <td>5125577</td>
+      <td>1951</td>
+      <td>1000</td>
+      <td>-73.6182</td>
+      <td>45.5015</td>
+    </tr>
+
+    <tr>
+      <td><code>b8</code></td>
+      <td>1037688</td>
+      <td>2000</td>
+      <td>6000</td>
+      <td>-73.5734</td>
+      <td>45.5016</td>
+    </tr>
+
+    <tr>
+      <td><code>b9</code></td>
+      <td>3075788</td>
+      <td>1952</td>
+      <td>1000</td>
+      <td>-73.6083</td>
+      <td>45.4948</td>
+    </tr>
+
+  </tbody>
+</table>
+
+</div>
+
+!!! info "Notes on Required and Optional Columns"
+
+    The **minimum set of columns** must provide:
+    
+    - A unique internal identifier for each building  
+    - Links to construction-year and usage-type archetypes  
+
+    However, several fields are **optional** depending on the use case:
+
+    - **`building_osm_id`** is *not mandatory*. When no GIS/OpenStreetMap ID is available, CityBEM can use a **default placeholder** and still run normally.  
+    - **`longitude` and `latitude`** are also *not required* for running CityBEM.  
+      These coordinates become useful if you want to automatically extract additional attributes from GIS layers—such as:  
+      building age, usage type, height, footprint geometry, and address information.
+
+    You can generate this file efficiently using **QGIS**, a free and powerful GIS tool.  
+    By loading building footprints with coordinates, QGIS can automatically populate or join:
+    building age, usage type, height, OSM IDs, and many other layers.
+
+    👉 [Download QGIS](https://qgis.org/ "QGIS — Official Website"){target="_blank"}  
+
+
+### 2.3 Why this Data?
 
 - Reads all building rows and constructs an internal **building list/array**.
 - For each building:
@@ -195,79 +314,133 @@ Depending on the case, additional columns can be included (e.g., number of floor
   - Uses `usage_type_code` to select operational and HVAC properties from the **usage-type archetype** file.
   - Links the `building_id` to geometric entities in the STL file based on the same ID or consistent naming.
 
-**Consistency requirement:**  
-All buildings referenced in other files (e.g., result selection, PV configuration, etc.) must use the same `building_id` defined here.
+**Building ID Consistency:**  
+All buildings referenced in other files (e.g., result selection, PV configuration, etc.) will use the same `building_id` defined here.
 
 ---
 
-# 2. Archetype Libraries
+## 3. Archetype Libraries
 
-Archetypes define **typical properties** for groups of buildings, instead of specifying every parameter per building. CityBEM V2 uses archetypes to keep simulations scalable at the **city level**.
+Archetypes define **typical building characteristics** so that CityBEM can operate efficiently at **large urban scales** without requiring detailed inputs for every building.
 
-The following files define different archetype dimensions:
+CityBEM V2 uses multiple archetype dimensions to describe buildings:
 
-- Construction year (envelope, infiltration)
-- Usage type (internal loads, schedules, HVAC)
-- Material composition (slabs, walls, construction materials)
-- Energy sources (for operational GHG calculations)
-- Internal heat gains
+- **Construction year archetypes**  
+  Define envelope performance, infiltration, and vintage-dependent parameters.
+- **Usage-type archetypes**  
+  Define internal loads, occupancy schedules, HVAC characteristics, and equipment use.
+- **Material property archetypes**  
+  Define effective properties for slabs, walls, roofs, and simplified thermal-mass layers.
+- **Energy-source archetypes**  
+  Enable operational GHG calculations (electricity, natural gas, district energy, etc.).
+- **Internal heat-gain archetypes**  
+  Define representative heat contributions from people, lighting, and equipment.
 
 ---
 
-## 2.1 Construction Year Archetype  
-### `Input_City_scale_archetype_year.txt`
+!!! info ":material-earth: Applicability of Provided Archetypes"
+    The example archetype libraries included in this documentation are based on **North American building stock**, with particular emphasis on **Canadian and Québec urban environments**.  
+    These archetypes can be **easily adapted** to other cities or regions by adjusting:
 
-<div align="center">
-  <img src="assets/input_archetype_year.png" alt="Year-based Archetypes Example" width="80%">
-</div>
+    - Envelope parameters for local construction practices  
+    - Infiltration characteristics  
+    - Usage-type schedules reflecting local behavior  
+    - HVAC system assumptions  
+    - Material characteristics based on regional datasets  
 
-### Purpose
+    CityBEM’s modular archetype structure makes it straightforward to customize the model for **any international urban context**.
 
-This file defines **construction-year-based archetypes**, which capture how building envelopes and infiltration rates differ across vintages (e.g., pre-1945, 1945–1975, post-2000).
+---
 
-Each row corresponds to a **construction year class**, usually represented by:
-- A year interval (e.g., 1945–1975) or
-- A representative year (e.g., 1975)
+### 3.1 Construction-Year Archetypes  
+:material-file-document-outline: `Input_City_scale_archetype_year.txt`
 
-### Main Data Blocks
+<figure markdown>
+  ![Construction-Year Archetype Table](assets/input_City_scale_archetype_year.png){ width="100%" loading=lazy }
+  <figcaption>Mapping construction-year classes to envelope and infiltration parameters in CityBEM</figcaption>
+</figure>
 
-1. **Infiltration (ACH)**  
-   - Typical air change rates (ACH) for:
-     - Winter conditions
-     - Summer conditions
-   - These values are used to estimate **air leakage** and its impact on heating/cooling loads.
-   - ACH values are later converted to mass/volumetric flow rates based on floor area and ceiling height.
+---
 
-2. **Envelope Properties**  
-   For each year archetype, the file includes parameters such as:
+!!! abstract "Purpose of This File"
+    This file defines how **building envelope performance** and **air infiltration** vary across construction vintages.  
+    It allows CityBEM to assign appropriate thermal characteristics to each building based on its **year of construction**.
 
-   - **U-values** (W/m²·K) for:
-     - Roof
-     - External walls
-     - Ground floor/slab
-     - Windows
-   - **Solar Heat Gain Coefficient (SHGC)** for glazing  
-   - **Material properties** (effective values for simplified envelope layers):
-     - Heat capacity (Cp, J/kg·K)
-     - Density (ρ, kg/m³)
-     - Effective layer thickness (m)
-   - **Radiative properties**:
-     - Shortwave absorptance (α) for walls and roofs
-     - Longwave emissivity (ε)
+---
 
-These parameters directly influence:
-- Heat transfer through the envelope
-- Solar absorption on opaque surfaces
-- Thermal mass effects during transient simulations
+#### :material-table: **What This File Contains**
 
-### How CityBEM Uses This File
+Each row represents a **construction-year class**, defined by either:
 
-- For each building, the `year_of_construction` from `Input_City_scale_building_info.txt` is mapped to a **year archetype row**.
-- The envelope and infiltration values are assigned to all surfaces and zones of that building.
-- These properties are used in:
-  - Surface heat balance equations
-  - Zone energy balance
-  - Calculation of heating/cooling demand
+- A year interval (e.g., `1945–1975`), or  
+- A representative year (e.g., `1975`).
+
+CityBEM uses these classes to consistently apply envelope and infiltration characteristics across all buildings in the city.
+
+---
+
+#### :material-air-filter: Infiltration (ACH)
+
+| Parameter | Description |
+|----------|-------------|
+| **Winter ACH** | Typical infiltration rate under cold-weather conditions |
+| **Summer ACH** | Infiltration rate during warm conditions |
+| **Air leakage influence** | Affects sensible loads and HVAC system demand |
+
+CityBEM converts ACH values internally into **volumetric or mass flow rates** based on floor area and zone height.
+
+---
+
+#### :material-home-thermometer-outline: Envelope Thermal Properties
+
+The construction-year archetype defines effective thermal characteristics used for energy balance and heat-transfer calculations.
+
+#### Envelope Types
+- Roof  
+- External walls  
+- Ground floor / slab  
+- Windows  
+
+#### Glazing Properties
+- Solar Heat Gain Coefficient (SHGC)  
+- Window U-value  
+
+#### Material Thermal Properties
+- Heat capacity (Cp, J/kg·K)  
+- Density (ρ, kg/m³)  
+- Effective thermal mass layer thickness  
+
+#### Radiative Properties
+- Shortwave absorptance (α) 
+- Longwave emissivity (ε)
+
+These govern:
+
+- Heat conduction  
+- Solar absorption  
+- Thermal mass storage  
+- Surface heat balance  
+
+---
+
+#### :material-cog-outline: How CityBEM Uses This File
+
+!!! tip ""
+    CityBEM automatically links each building to the correct archetype using  
+    **`year_of_construction` from `Input_City_scale_building_info.txt`**.
+
+#### Processing workflow:
+
+1. Read `year_of_construction`  
+2. Match the appropriate construction-year class  
+3. Assign infiltration + envelope thermal properties  
+4. Apply parameters in:
+   - Surface heat balance  
+   - Zone energy balance  
+   - Heating and cooling load calculations  
+   - Solar and longwave radiative exchange  
+
+This ensures **consistent, scalable, and physically meaningful** building characterization across the entire city.
 
 ---
 
@@ -728,13 +901,12 @@ Wind data supports:
 # 5. Solar Position Input
 
 ## 5.1 Hourly Sun Position Data  
-### **`Input_cosine_zenith.txt`**
+### `Input_cosine_zenith.txt`
 
-<div align="center">
-  <img src="assets/input_cosine_zenith.png" alt="Cosine Zenith Example" width="50%">
-</div>
-
----
+<figure markdown>
+  ![Cosine Zenith Example](assets/input_cosine_zenith.png){ width="50%" loading=lazy }
+  <figcaption>Hourly sun position data</figcaption>
+</figure>
 
 ### 🔍 5.1 Purpose
 
@@ -746,8 +918,9 @@ By preparing these values in advance, CityBEM avoids repeated solar-position cal
     <a href="https://gml.noaa.gov/grad/solcalc/" target="_blank">NOAA Solar Position Calculator</a>.
 
 **Notes:**
-- **Hourly resolution is sufficient** for sun-position data because solar angles vary smoothly over time.  
-- If the simulation timestep is **sub-hourly**, CityBEM will **extrapolate/interpolate solar-position values automatically**, ensuring accurate sun-direction inputs at all temporal resolutions.
+
+- Hourly resolution is sufficient for sun-position data because solar angles vary smoothly over time.  
+- For sub-hourly simulations, CityBEM will **extrapolate/interpolate** solar-position values automatically.
 
 ---
 
@@ -781,105 +954,94 @@ The stored solar-geometry values are used throughout the solar and shading pipel
 
 ---
 
-# 5. Simulation Settings
+## 5. Simulation Settings
 
-## 5.1 General Settings  
-### `Input_general_settings.txt`
-
-<div align="center">
-  <img src="assets/input_general_settings.png" alt="General Settings Example" width="80%">
-</div>
-
-### Purpose
-
-This file defines **global simulation flags and modes** that control how CityBEM behaves at runtime.
-
-### Typical Parameters
-
-- **Problem type**
-  - Pure building energy simulation
-  - Building–microclimate co-simulation (CityFFD)
-  - GEM or other external couplings
-
-- **Microclimate coupling**
-  - Coupling interval (e.g., how often microclimate data is updated)
-  - Flags to activate/deactivate microclimate feedback on surface boundary conditions
-
-- **Debug and logging options**
-  - Level of diagnostic printing
-  - Options to produce additional intermediate files for debugging
-
-- **Long simulation controls**
-  - Rules for reseting internal state variables
-  - Controls to avoid numerical drift in very long transient simulations
-
-- **CityLayers integration**
-  - Flags to enable linking with external **digital twin** or **city platform** tools (e.g., CityLayers)
-
-### How CityBEM Uses This File
-
-- Initializes the main simulation mode before any time-stepping loop is started.
-- Determines which solvers, coupling schemes, and I/O routines are activated.
-- Allows users to configure advanced workflows (e.g., coupled Urban Climate–Building Energy simulations) without changing the code.
+This section collects the files and parameters that control CityBEM runs at city scale. The layout below is designed for clarity and quick configuration reference.
 
 ---
 
-## 5.2 City-Scale Simulation Settings  
-### `Input_City_scale_settings.txt`
+### 5.1 General Settings  
+`Input_general_settings.txt`
 
-<div align="center">
-  <img src="assets/input_city_scale_settings.png" alt="CityBEM City-scale Settings Example" width="80%">
-</div>
+!!! abstract "Purpose"
+    This file defines **global simulation flags and modes** that control how CityBEM behaves at runtime.  
+    It sets the high-level problem type, coupling options, diagnostics, and long-run controls so users can switch workflows without editing code.
 
-### Purpose
+---
 
-This is the **central configuration file** controlling city-scale simulation parameters.  
-It defines **time controls**, **geographic parameters**, **building physics options**, and **optional add-ons**.
+#### Key Controls (clean overview)
 
-### Main Parameter Groups
+| Group | Typical Parameters | Why it matters |
+|------|--------------------|----------------|
+| **Problem type** | `Pure building energy`, `Building–microclimate (CityFFD)`, `GEM coupling` | Selects the main simulation workflow and coupling scheme |
+| **Microclimate coupling** | Coupling interval, feedback flags, exchange variables | Controls how and when the urban climate model updates boundary conditions |
+| **Diagnostics & logging** | Log level, debug file flags, intermediate file generation | Useful for validation and debugging complex scenarios |
+| **Long-run stability** | State-reset rules, numerical-drift controls | Prevents accumulation of numerical error in very long simulations |
+| **CityLayers / Digital Twin** | Integration flags, API endpoints, sync intervals | Enables linking CityBEM to external city platforms for live or offline analysis |
 
-#### 1. Time Controls
-- Simulation start date and time
-- Simulation end date or total duration
-- Timestep size (seconds)
-- Optionally, warm-up periods for stabilizing initial conditions
+---
 
-#### 2. Geographic Controls
-- Latitude and longitude of the study area
-- Time zone (e.g., UTC offset)
-- Site elevation
-- These parameters are used for:
-  - Solar position calculation
-  - Atmospheric corrections
+!!! info "How CityBEM Uses This File"
+    - The configuration file is read at simulation startup and sets which solvers, I/O modules, and coupling routines are enabled.  
+    - Changing this file changes run-time behavior without recompilation.  
+    - Use conservative debug settings for production runs; enable verbose logging only for testing and validation.
 
-#### 3. Building Physics Settings
-- Number of wall and roof layers used in the conduction model
-- Ventilation settings:
-  - Infiltration model options
-  - Mechanical ventilation rates (if globally applied)
-- HVAC operation options:
-  - Control strategy (e.g., thermostat-based, scheduled operation)
-  - Operation mode flags (e.g., heating-season-only, cooling-season-only, or combined)
+---
 
-#### 4. Optional Add-ons
-Flags and parameters to activate or configure:
+### 5.2 City-Scale Simulation Settings
+`Input_City_scale_settings.txt`
 
-- **Rooftop PV model**
-  - Whether to simulate PV
-  - Links to PV design inputs and shading models
-- **Green roofs**
-  - Whether green roof modules are activated
-- **Shading model**
-  - Whether detailed 3D ray-tracing shading calculations are used
-- **Microclimate coupling**
-  - Whether to use microclimate-adjusted boundary conditions from CityFFD or other tools
+<figure markdown>
+  ![City-Scale Simulation Settings](assets/input_city_scale_settings.png){ width="100%" loading=lazy }
+  <figcaption>Example of parameters and layout for <code>Input_City_scale_settings.txt</code> </figcaption>
+</figure>
 
-### How CityBEM Uses This File
+#### Purpose
+This file defines the **central configuration parameters** used to control CityBEM city-scale simulations, including **time settings**, **geographic inputs**, **building physics options**, and **optional modules**.
 
-- Read at initialization to:
-  - Configure the internal solver structure
-  - Set global constants and switches
-- Every subsequent input file is interpreted **in the context** of these settings (e.g., time step, simulation period).
+---
+
+#### City-Scale Settings Table
+
+| Parameter | Value | Description |
+|----------|-------|-------------|
+| `Simulation_Dt` | 3600 s | Time step of dynamic simulation (recommended 60–900 s) |
+| `Simulation_hour` | 20 | Total simulated time (hours) |
+| `Start_time` | 01/01/2023 00:00:00 | Simulation start date and time |
+| `Start_day` | 01 | Simulation start day |
+| `Start_month` | 01 | Simulation start month |
+| `Start_year` | 2023 | Simulation start year |
+| `weather_data_status` | 1 | Weather file time basis (1 = local, -1 = solar) |
+| `annual_weather_data` | Yes | Whether full-year weather data is provided |
+| `Latitude_c` | 45.4017 | Latitude of domain center |
+| `Longitude_c` | -73.5673 | Longitude of domain center |
+| `Longitude_tz` | -75 | Time‑zone longitude |
+| `City_TimeZone_h` | -5 | Local time zone (hours) |
+| `City_elev` | 133 m | Elevation of the city |
+| `Weather_input` | Single_station | Type of weather input (Single_station/SPS/HRDPS) |
+| `Initialize_type` | Archetype | Initial condition source (Input/Archetype) |
+| `Wall_layers` | 5 | Number of solid layers in walls/roof/floor |
+| `Mehanical_vent` | No | Mechanical ventilation operation |
+| `NV_opening` | No | Natural ventilation through windows |
+| `Sim_type_HVAC` | Model_HVAC | HVAC simulation mode |
+| `R_g` | 0.25 | Ground reflectance (albedo) |
+| `geometryDisThre` | 1.0 m | Threshold for identifying attached buildings |
+| `Interior_shading` | Conditional | Interior shading device operation |
+| `Shading_coeff` | 0.6 | Multiplier applied to window SHGC |
+| `Dt_out` | 3600 s | Output file time step |
+| `City_name` | Montreal | Name of the simulated city |
+| `Greenroof_option` | No | Activate green roof model |
+| `RooftopPV_option` | No | Activate rooftop PV model |
+| `RooftopPV_detailedSurfaceModel` | No | Use detailed PV temperature model |
+| `City_shading_tool` | No | Turn shading solver ON/OFF |
+| `City_shading_file` | No | Whether external shading factor file is provided |
+
+---
+
+#### Notes
+- These settings provide all physical, climatic, operational, and numerical controls for a CityBEM simulation.
+- Parameters are customizable depending on the city and dataset structure.
+- All values shown are examples from a **Montreal-based simulation configuration**.
 
 ---
 

@@ -10,7 +10,6 @@ theme:
     - content.tabs
     - content.cards
     - content.grid
-    - navigation.instant
     - navigation.title
   hide:
     - header
