@@ -11,25 +11,38 @@ workflow in other UBEMs.
 
 ## 📁 Repository Structure
 
-    CityBEM-Docs/
-    │
-    ├── docs/                     # Main documentation source files
-    │   ├── index.md             # Main landing page
-    │   ├── overview.md          # High-level introduction to the framework
-    │   ├── installation.md      # How to install & run CityBEM
-    │   ├── data_inputs.md       # Detailed explanation of input arrays
-    │   ├── pv_workflow.md       # Rooftop PV modeling workflow
-    │   ├── shading_tool.md      # Inter-building shading tool documentation
-    │   ├── view_factor.md       # (Future) View-factor tool documentation
-    │   └── examples/            # Usage examples & tutorials
-    │
-    ├── assets/                  # Figures, diagrams, icons used in docs
-    │
-    ├── .github/
-    │   └── workflows/           # GitHub Pages / CI workflows
-    │
-    ├── mkdocs.yml               # MkDocs configuration for building the website
-    └── README.md                # This file
+CityBEM-Docs/
+│
+├── docs/                         # Main documentation source files
+│   ├── about.md                  # About CityBEM
+│   ├── building_energy_modeling.md
+│   ├── contact.md
+│   ├── data_inputs.md
+│   ├── index.md                  # Website homepage
+│   ├── installation.md
+│   ├── microclimate.md
+│   ├── outputs.md
+│   ├── publications.md
+│   ├── pv_model.md               # Rooftop PV model documentation
+│   ├── run_citybem.md            # How to run the model
+│   ├── solar_radiation.md
+│   │
+│   ├── assets/                   # All images, diagrams, figures
+│   │     └── (png, pptx, etc.)
+│   │
+│   ├── examples/                 # Example inputs / sample workflows
+│   ├── javascripts/              # Optional custom JS for MkDocs
+│   └── stylesheets/              # Custom CSS for the documentation site
+│
+├── .github/
+│   └── workflows/
+│         └── deploy.yml          # GitHub Pages deployment workflow
+│
+├── .gitignore
+│
+├── mkdocs.yml                    # MkDocs configuration file
+│
+└── README.md                     # Main repository description
 
 ------------------------------------------------------------------------
 
@@ -73,7 +86,7 @@ workflow in other UBEMs.
                 | (Automatic via Workflow)  |
                 +---------------------------+
 
-            User View: https://<username>.github.io/CityBEM-Docs/
+            User View: https://umbe-lab.github.io/CityBEM-Docs/
 
 ------------------------------------------------------------------------
 
@@ -107,7 +120,7 @@ workflow in other UBEMs.
 
 ## 🤝 How to Contribute
 
-1.  **Fork** the repository.\
+1.  **Fork** the repository.
 
 2.  **Create a new branch**:
 
@@ -115,7 +128,7 @@ workflow in other UBEMs.
     git checkout -b feature/my-improvement
     ```
 
-3.  Add or update Markdown files inside the `docs/` directory.\
+3.  Add or update Markdown files inside the `docs/` directory.
 
 4.  Submit a **pull request** with a clear explanation.
 
