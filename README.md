@@ -11,6 +11,7 @@ workflow in other UBEMs.
 
 ## 📁 Repository Structure
 
+```text
 CityBEM-Docs/
 │
 ├── docs/                         # Main documentation source files
@@ -27,22 +28,19 @@ CityBEM-Docs/
 │   ├── run_citybem.md            # How to run the model
 │   ├── solar_radiation.md
 │   │
-│   ├── assets/                   # All images, diagrams, figures
-│   │     └── (png, pptx, etc.)
-│   │
-│   ├── examples/                 # Example inputs / sample workflows
+│   ├── assets/                   # Images, diagrams, figures
+│   ├── examples/                 # Example cases & sample workflows
 │   ├── javascripts/              # Optional custom JS for MkDocs
-│   └── stylesheets/              # Custom CSS for the documentation site
+│   └── stylesheets/              # Custom CSS for MkDocs
 │
 ├── .github/
 │   └── workflows/
 │         └── deploy.yml          # GitHub Pages deployment workflow
 │
 ├── .gitignore
-│
 ├── mkdocs.yml                    # MkDocs configuration file
-│
 └── README.md                     # Main repository description
+```
 
 ------------------------------------------------------------------------
 
