@@ -14,32 +14,33 @@ workflow in other UBEMs.
 ```text
 CityBEM-Docs/
 │
-├── docs/                         # Main documentation source files
-│   ├── about.md                  # About CityBEM
-│   ├── building_energy_modeling.md
-│   ├── contact.md
-│   ├── data_inputs.md
-│   ├── index.md                  # Website homepage
-│   ├── installation.md
-│   ├── microclimate.md
-│   ├── outputs.md
-│   ├── publications.md
-│   ├── pv_model.md               # Rooftop PV model documentation
-│   ├── run_citybem.md            # How to run the model
-│   ├── solar_radiation.md
+├── docs/ # Main source directory for the website content.
+│   ├── index.md                    # Website homepage.
+│   ├── installation.md             # Guide for installation and setup.
+│   ├── run_citybem.md              # Guide for running CityBEM.
+│   ├── data_inputs.md              # Reference for required input data files.
+│   ├── outputs.md                  # Explanation of simulation result.
+│   ├── solar_radiation.md          # Documentation for solar modeling.
+│   ├── building_energy_modeling.md # Theory for the core energy model (UBEM).
+│   ├── pv_model.md                 # Documentation for the Rooftop PV module.
+│   ├── microclimate.md             # Explanation of microclimate coupling.
+│   ├── examples.md                 # Test cases, and sample results.
+│   ├── publications.md             # Related academic papers.
+│   ├── about.md                    # Aout the project and developers.
+│   ├── contact.md                  # Contact information and user support.
 │   │
-│   ├── assets/                   # Images, diagrams, figures
-│   ├── examples/                 # Example cases & sample workflows
-│   ├── javascripts/              # Optional custom JS for MkDocs
-│   └── stylesheets/              # Custom CSS for MkDocs
+│   │
+│   ├── assets/                     # Images, diagrams, figures
+│   ├── javascripts/                # Optional custom JS for MkDocs
+│   └── stylesheets/                # Custom CSS for MkDocs
 │
 ├── .github/
 │   └── workflows/
-│         └── deploy.yml          # GitHub Pages deployment workflow
+│         └── deploy.yml            # GitHub Pages deployment workflow
 │
 ├── .gitignore
-├── mkdocs.yml                    # MkDocs configuration file
-└── README.md                     # Main repository description
+├── mkdocs.yml                      # MkDocs configuration file
+└── README.md                       # Main repository description
 ```
 
 ------------------------------------------------------------------------
