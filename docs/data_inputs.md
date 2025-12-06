@@ -154,7 +154,7 @@ Below are recommended platforms to help users **generate, edit, or validate** bu
 ---
 
 ## 2. Building Stock Input Data
-:material-file-document-outline: `Input_City_scale_building_info.txt`
+:material-file-document-outline: File Reference: `Input_City_scale_building_info.txt`
 
 <figure markdown>
   ![City-scale building information input](assets/input_city_scale_building_info.png){ width="100%" loading=lazy }
@@ -164,6 +164,7 @@ Below are recommended platforms to help users **generate, edit, or validate** bu
 ### Purpose
 
 This file defines the **core metadata** for every building in the simulation domain. It acts as the **central index** that links:
+
 - GIS/OSM geometry
 - Archetype assignments (by year and usage type)
 - Geospatial location for solar and weather processing
@@ -287,22 +288,111 @@ Each row corresponds to **one building**.
 
     The **minimum set of columns** must provide:
     
-    - A unique internal identifier for each building  
-    - Links to construction-year and usage-type archetypes  
+    * A unique internal identifier for each building.
+    * Links to construction-year and usage-type archetypes.
 
     However, several fields are **optional** depending on the use case:
 
-    - **`building_osm_id`** is *not mandatory*. When no GIS/OpenStreetMap ID is available, CityBEM can use a **default placeholder** and still run normally.  
-    - **`longitude` and `latitude`** are also *not required* for running CityBEM.  
-      These coordinates become useful if you want to automatically extract additional attributes from GIS layers—such as:  
-      building age, usage type, height, footprint geometry, and address information.
+    * **`building_osm_id`** is *not mandatory*. When no GIS/OpenStreetMap ID is available, CityBEM can use a **default placeholder** and still run normally.
+    * **`longitude` and `latitude`** are also *not required* for running CityBEM. These coordinates become useful if you want to automatically extract additional attributes from GIS layers—such as building age, usage type, height, footprint geometry, and address information.
 
-    You can generate this file efficiently using **QGIS**, a free and powerful GIS tool.  
-    By loading building footprints with coordinates, QGIS can automatically populate or join:
-    building age, usage type, height, OSM IDs, and many other layers.
+    You can generate this file efficiently using **QGIS**, a free and powerful GIS tool. By loading building footprints with coordinates, QGIS can automatically populate or join building age, usage type, height, OSM IDs, and many other layers.
 
-    👉 [Download QGIS](https://qgis.org/ "QGIS — Official Website"){target="_blank"}  
+    👉 [Download QGIS](https://qgis.org/ "QGIS — Official Website"){:target="_blank"}
 
+---
+
+### :material-language-python: QGIS Python API
+
+To efficiently extract data from large **Geotiff** files (like Land Surface Temperature or impervious surface ratios) based on your building coordinates, Python scripts can be used in conjunction with **QGIS libraries (PyQGIS)**. This automates the preparation of simulation input parameters.
+
+This script uses **QGIS core libraries** and **Pandas** to sample raster data at specified latitude/longitude points provided in a CSV file.
+
+#### Usefulness of the Script
+
+This tool is invaluable for creating realistic simulation inputs:
+
+* **Automation:** It eliminates manual point sampling within GIS software for hundreds or thousands of buildings.
+* **Data Integration:** It automates the transfer of geographical data (e.g., average surface temperature at a building's location) directly into your simulation input tables.
+* **Scalability:** It is essential for generating large input files needed for city-scale simulations.
+
+**:material-console-line: Note on Usage and Capabilities**
+
+!!! warning "Execution Environment"
+
+    This script leverages the **PyQGIS API** and is specifically designed to be executed within the **QGIS Python Console**. This environment ensures that the necessary QGIS core libraries (`QgsRasterLayer`, `QgsCoordinateTransform`, etc.) are correctly loaded and accessible for geospatial operations.
+
+Beyond simple raster sampling, similar PyQGIS scripts can be used for advanced tasks, including:
+
+* **Data Extraction from GeoJSON/Shapefiles:** Extracting attributes (e.g., building age, height, usage type) from vector data (like city building footprints) by querying their coordinates or boundaries.
+* **Data Manipulation and Joining:** Performing complex spatial joins and data preparation tasks on imported vector and raster layers directly within the QGIS environment.
+
+**Example QGIS Python API Script**
+
+```python
+# ==============================================================================
+# Script: Raster Data Extraction via PyQGIS API
+# Purpose: Extracts pixel values from a GeoTIFF raster based on point coordinates
+#          provided in a CSV file.
+# Requirements:
+#   1. A GeoTIFF file (e.g., Land Surface Temperature).
+#   2. A separate points.csv file containing the three columns: 'building_name', 'lat', and 'lon'.
+#   3. The user need to define a directory_path for all input files.
+# Execution Environment: QGIS Python Console.
+# ==============================================================================
+
+# Import libraries
+import pandas as pd
+import csv
+from qgis.core import (
+    QgsRasterLayer,
+    QgsPointXY,
+    QgsCoordinateTransform,
+    QgsCoordinateReferenceSystem,
+)
+
+# The user need to modify this path (the path to the geotiff and points.csv file) (replace with your actual path and name)
+directory_path = 'D:/example/'
+
+# Load the raster layer
+raster_layer = QgsRasterLayer(directory_path+'LST.tif', 'LST')
+
+# Ensure the raster layer is valid
+if not raster_layer.isValid():
+    print("Error: Invalid raster layer")
+    exit()
+
+# Specify the path to the CSV file
+csv_file_path = directory_path+'points.csv'
+
+# Read the CSV file into a pandas DataFrame
+df = pd.read_csv(csv_file_path)
+
+# Define source and destination CRS (adjust if needed)
+source_crs = QgsCoordinateReferenceSystem("EPSG:4326")  # WGS84 degrees
+dest_crs = QgsCoordinateReferenceSystem("EPSG:32618")  # UTM zone 18N meters (adjust as needed)
+
+# Iterate over each row in the DataFrame and print its elements
+for index, row in df.iterrows():
+    building_name = row['building_name']
+    latitude = float(row['lat'])
+    longitude = float(row['lon'])
+
+    # Check for coordinate conversion based on layer CRS
+    if raster_layer.crs().authid() != source_crs.authid():
+        xform = QgsCoordinateTransform(source_crs, dest_crs, QgsProject.instance())
+        point = xform.transform(QgsPointXY(longitude, latitude))
+    else:
+        point = QgsPointXY(longitude, latitude)
+
+    # Get the pixel value at the point
+    value, success = raster_layer.dataProvider().sample(point, 1)
+    
+    df.loc[index, 'LST'] = value  # Use 'LST' as a string for column name
+    
+# Save the modified DataFrame to a new CSV file
+df.to_csv(directory_path+'output.csv', sep=',', index=False)
+```
 
 ### Why this Data?
 
@@ -351,7 +441,7 @@ CityBEM V2 uses multiple archetype dimensions to describe buildings:
 ---
 
 ### 3.1 Construction Archetypes  
-:material-file-document-outline: `Input_City_scale_archetype_year.txt`
+:material-file-document-outline: File Reference: `Input_City_scale_archetype_year.txt`
 
 <figure markdown>
   ![Construction-Year Archetype Table](assets/input_city_scale_archetype_year.png){ width="100%" loading=lazy }
@@ -441,7 +531,7 @@ This ensures **consistent, scalable, and physically meaningful** building charac
 ---
 
 ### 3.2 Usage Type Archetype  
-:material-file-document-outline: `Input_City_scale_archetype_usage_type.txt`
+:material-file-document-outline: File Reference: `Input_City_scale_archetype_usage_type.txt`
 
 <figure markdown>
   ![Usage Type Archetype Table](assets/input_city_scale_archetype_usage_type.png){ width="100%" loading=lazy }
@@ -506,7 +596,7 @@ They define the **operational identity** of each building in the simulation.
 ---
 
 ### 3.3 Internal Heat Gains  
-:material-file-document-outline: `Input_City_scale_archetype_IHG.txt`
+:material-file-document-outline: File Reference: `Input_City_scale_archetype_IHG.txt`
 
 <figure markdown>
   ![Internal Heat Gains Table](assets/input_city_scale_archetype_ihg.png){ width="100%" loading=lazy }
@@ -577,7 +667,7 @@ This file governs how internal heat sources vary throughout the day and year.
 At each timestep, CityBEM:
 
 - Reads occupancy, lighting, and plug-load schedules  
-- Converts them into sensible and latent components  
+- Converts them into sensible and latent (latent part is not yet modeled) components  
 - Applies them to the thermal and moisture balance of each zone  
 
 Accurate IHG profiles are critical for reproducing:
@@ -590,114 +680,113 @@ Accurate IHG profiles are critical for reproducing:
 
 ---
 
-## 2.3 Slab Material Archetype  
-:material-file-document-outline: `Input_City_scale_archetype_slabs_material.txt`
+### 3.4 :material-layers: Slab Material
+:material-file-document-outline: File Reference: `Input_City_scale_archetype_slabs_material.txt`
 
-<div align="center">
-  <img src="assets/input_slabs_material.png" alt="Slab Material Archetype Example" width="80%">
-</div>
-
-### Purpose
-
-This file defines **simplified multi-layer slab constructions** (e.g., floor slabs, intermediate slabs) used to represent the thermal mass of horizontal building elements.
-
-Each row represents a **slab type**, which may be linked to specific usage types or construction-year categories depending on your workflow.
-
-### Typical Parameters
-
-- Total slab thickness (m)
-- Layer sequence and thicknesses (e.g.):
-  - Concrete
-  - Insulation
-  - Gypsum board
-  - Wood floor
-- Optional effective thermal properties if present:
-  - Conductivity (W/m·K)
-  - Volumetric heat capacity (J/m³·K)
-
-### Why this Data?
-
-- Converts layer definitions into:
-  - Overall thermal resistance / capacitance
-  - Equivalent thermal mass representation
-- Applies slab properties in:
-  - Heat balance equations for floor surfaces
-  - Transient storage of energy in the building mass
+<figure markdown>
+  ![Slab Material Archetype Example](assets/input_city_scale_archetype_slabs_material.png){ width="110%" loading=lazy }
+  <figcaption>Slab Material Archetype Example</figcaption>
+</figure>
 
 ---
 
-## 2.4 External Wall Material Archetype  
-:material-file-document-outline: `Input_City_scale_archetype_external_wall_material.txt`
+#### :material-target: Purpose and Scope
 
-<div align="center">
-  <img src="assets/input_external_wall_material.png" alt="External Wall Material Archetype Example" width="80%">
-</div>
+This file is designed for the **quantification of construction material mass** within horizontal building elements (slabs, floors). The primary, long-term goal of this data is to enable the calculation of **embodied carbon emissions** for building materials, linking geometry, material use, and environmental impact.
 
-### Purpose
+!!! warning "Development Status"
 
-This file defines **simplified external wall constructions** for typical wall types used in the building stock.
+    This feature is **currently under assessment and development**. The input structure shown here is preliminary and will be updated later to ensure accurate material mass calculation and integration with embodied emission factors.
 
-Each row corresponds to a **wall material configuration**, which may be associated with specific year/usage archetypes.
+#### :material-format-list-bulleted: Current Data Structure
 
-### Typical Parameters
+The file currently defines materials and their corresponding thicknesses, allowing the model to determine the mass contribution of various layers when combined with material density data (not explicitly shown here).
 
-- Number of layers and their material type (e.g., brick, insulation, concrete, sheathing)
-- Thickness of each layer (m)
-- Optional effective properties (if not provided in the year archetype):
-  - Thermal conductivity (W/m·K)
-  - Density (kg/m³)
-  - Specific heat (J/kg·K)
+#### :material-format-list-bulleted: Key Parameters Defined
 
-### Why this Data?
-
-- Builds an equivalent 1D conduction model for wall elements.
-- Evaluates:
-  - Transient heat conduction through walls
-  - Thermal mass buffering effects
-- Works in combination with the **year archetype** file:
-  - The year archetype provides effective U-values and high-level properties.
-  - This material file refines the internal representation if detailed mass modeling is required.
+| Parameter | Description |
+| :--- | :--- |
+| **Number_of_materials** | The count of distinct layers defined in the archetype. |
+| **Wall_total_thickness** | The aggregate thickness of the entire construction layer (in meters). |
+| **Material_name** | The name of the specific material (e.g., Gypsum, Wood). |
+| **Material_length** | The thickness of that specific material layer (in meters). |
 
 ---
 
-## 2.6 Energy Sources & Emission Factors  
-:material-file-document-outline: `Input_City_scale_archetype_energy_source.txt`
+#### :material-calculator: Future Simulation Value
 
-<div align="center">
-  <img src="assets/input_energy_source.png" alt="Energy Source Archetype Example" width="80%">
-</div>
+This data structure is foundational to the following calculation steps (pending full feature implementation):
 
-### Purpose
+* **Mass Quantification:** Converting geometric dimensions (from the building model) and layer thicknesses (from this file) into the total physical mass (kg or tonnes) of construction materials.
+* **Embodied Emission Calculation:** Applying specific Embodied Carbon Factors (kgCO₂e/kg) to the calculated material mass to determine the upfront carbon footprint of the building stock.
 
-This file describes how **energy carriers** (e.g., electricity, natural gas, district heating) are used in the model and assigns **GHG emission factors** to them.
+This will ultimately enable CityBEM V2 to compare retrofitting scenarios based on both operational energy and embodied emissions.
 
-### Typical Parameters
+---
 
-- Number of energy carriers defined
-- For each energy carrier:
-  - Name (e.g., `Electricity`, `NaturalGas`, `DistrictHeat`)
-  - Emission factor (e.g., gCO₂e/kWh, kgCO₂e/kWh)
-  - Possibly primary energy factor (if implemented)
-  - Mapping to specific **end uses**, such as:
-    - Space heating
-    - Space cooling
-    - Fans and pumps
-    - Lighting
-    - Appliances and plug loads
+### 3.5 :material-wall: External Wall
+:material-file-document-outline: File Reference: `Input_City_scale_archetype_external_wall_material.txt`
 
-### Why this Data?
+<figure markdown>
+  ![External Wall Material Archetype Example](assets/input_city_scale_archetype_external_wall_material.png){ width="100%" loading=lazy }
+  <figcaption>External Wall Material Archetype Example</figcaption>
+</figure>
 
-- After computing energy demand and HVAC consumption, CityBEM assigns each end-use energy flow to an energy carrier.
-- The corresponding **emission factors** are applied to compute:
-  - Time-resolved GHG emissions
-  - Aggregated annual GHG emission metrics
+---
 
-This enables comparison of retrofitting scenarios not only in terms of energy, but also in terms of **carbon footprint**.
+#### :material-target: Purpose and Scope
+
+This file is designed for the **quantification of construction material mass** within the vertical building elements (external walls). The primary, long-term objective of this data is to enable the calculation of **embodied carbon emissions** associated with the wall construction materials of the building stock.
+
+!!! warning "Development Status"
+
+    This feature is **currently under assessment and development**. The input structure shown here is preliminary and will be updated later to ensure accurate material mass calculation and integration with embodied emission factors.
+
+#### :material-format-list-bulleted: Data Structure
+
+The file defines the internal structure of wall archetypes by listing component materials and their corresponding thicknesses, which is the foundational data needed to calculate material mass (when combined with density data).
+
+---
+
+### 3.6 :material-power-socket-eu: Energy Sources Archetype
+:material-file-document-outline: File Reference: `Input_City_scale_archetype_energy_source.txt`
+
+<figure markdown>
+  ![Energy Source Archetype Example](assets/input_city_scale_archetype_energy_source.png){ width="80%" loading=lazy }
+  <figcaption>Energy Source Archetype Example</figcaption>
+</figure>
+
+---
+
+#### :material-target: Purpose and Scope
+
+This crucial input file defines the **energy carriers** (e.g., electricity, natural gas, district heating) used by buildings within the simulation and assigns **Greenhouse Gas (GHG) emission factors** to each source.
+
+#### :material-format-list-bulleted: Key Parameters
+
+The file structures the simulation environment by defining the following for each energy carrier:
+
+| Parameter | Description |
+| :--- | :--- |
+| **Name** | Unique identifier (e.g., `Electricity`, `NaturalGas`). |
+| **Emission Factor** | The carbon intensity of the source (e.g., gCO₂e/kWh or kgCO₂e/kWh). |
+| **End-Use Mapping** | Assigns the energy carrier to specific consumption categories, such as: Space Heating, Space Cooling, Lighting, Appliances, and Fans/Pumps. |
+
+#### :material-chart-bar-stacked: Simulation Value
+
+After CityBEM computes the building energy demand and required HVAC consumption, this data is applied for two critical functions:
+
+1.  **Carrier Assignment:** Each end-use energy flow is mapped to the specified energy carrier defined in this file.
+2.  **GHG Computation:** The corresponding **emission factors** are applied to the flow to compute time-resolved and aggregated annual GHG emission metrics.
+
+!!! tip "Carbon Footprint Analysis"
+
+    Defining these factors enables the comparison of retrofitting scenarios not only in terms of energy consumption but, more powerfully, in terms of **carbon footprint reduction** and compliance with decarbonization goals.
 
 ---
 
 ## 2.7 Construction Materials (Embodied Emissions)  
-:material-file-document-outline: `Input_City_scale_archetype_construction_materials_general.txt`
+:material-file-document-outline: File Reference: `Input_City_scale_archetype_construction_materials_general.txt`
 
 <div align="center">
   <img src="assets/input_construction_materials.png" alt="Construction Materials General Archetype" width="80%">
@@ -725,7 +814,7 @@ Each row represents a **material type** commonly used in regional construction (
 ---
 
 ## 4. :material-weather-cloudy: Weather Data
-:material-file-document-outline: `Input_weatherdata.txt`
+:material-file-document-outline: File Reference: `Input_weatherdata.txt`
 
 <figure markdown>
   ![Weather Data Structure](assets/input_weatherdata.png){ width="100%" loading=lazy }
@@ -734,7 +823,7 @@ Each row represents a **material type** commonly used in regional construction (
 
 ---
 
-### 📘 4.1 Overview
+### :material-book-open-page-variant: Overview
 
 `Input_weatherdata.txt` provides the meteorological time series that CityBEM uses as boundary conditions for all buildings in the simulation domain.
 
@@ -742,7 +831,7 @@ This file typically contains **one full year** of data at a fixed time interval 
 
 ---
 
-### 📄 4.2 File Structure
+### :material-file-document: File Structure
 
 <div class="grid cards" markdown>
 
@@ -759,7 +848,7 @@ This file typically contains **one full year** of data at a fixed time interval 
 
 ---
 
-### 📑 4.3 Weather Data Description
+### :material-view-list: Weather Data Description
 
 <div align="center" style="width: 95%; margin: 0 auto;">
 
@@ -846,7 +935,7 @@ This file typically contains **one full year** of data at a fixed time interval 
 
 ---
 
-### :material-weather-partly-cloudy: 4.4 Supported Weather Data Sources
+### :material-weather-partly-cloudy: Data Sources
 
 CityBEM can operate with multiple types of meteorological datasets:
 
@@ -870,7 +959,7 @@ CityBEM can operate with multiple types of meteorological datasets:
 
     ---
 
-    ### :material-weather-sunny: **1. National Solar Radiation Database (NSRDB)** — *Global TMY Data*
+    :material-weather-sunny: **1. National Solar Radiation Database (NSRDB)** — *Global TMY Data*
     The most authoritative source for **TMY solar and meteorological datasets** worldwide.  
     Includes GHI, DNI, DHI, wind, temperature, humidity, and more.
 
@@ -879,7 +968,7 @@ CityBEM can operate with multiple types of meteorological datasets:
 
     ---
 
-    ### :material-map-search: **2. EPWMap (Ladybug Tools)** — *Interactive EPW World Map*
+    :material-map-search: **2. EPWMap (Ladybug Tools)** — *Interactive EPW World Map*
     A modern, map-based interface for searching, previewing, and downloading EPW files  
     from multiple repositories (EnergyPlus, OneBuilding, NSRDB links, etc.).  
     Very intuitive for selecting weather files by location.
@@ -889,7 +978,7 @@ CityBEM can operate with multiple types of meteorological datasets:
 
     ---
 
-    ### :material-file-chart: **3. Elements (Big Ladder Software)** — *EPW & TMY Viewer/Editor*
+    :material-file-chart: **3. Elements (Big Ladder Software)** — *EPW & TMY Viewer/Editor*
     A powerful desktop tool for **visualizing, extracting, converting, and editing**  
     weather data from **EPW**, **TMY**, and similar formats.  
     Ideal for preparing CityBEM-compatible weather inputs and  
@@ -902,25 +991,28 @@ CityBEM can operate with multiple types of meteorological datasets:
 
 ---
 
-### ⚙️ 4.5 How CityBEM Uses Weather Data
+### :material-cogs: Process in CityBEM
 
 Weather inputs drive the physical models for every timestep in the simulation.
 
-#### 1. Thermal Boundary Conditions
+**Thermal Boundary Conditions**
+
 Used for:
 
 - Surface heat balance  
 - Indoor zone energy balance  
 - Moisture balance (humidity, evaporation, infiltration)
 
-#### 2. Solar Radiation Modeling
+**Solar Radiation Modeling**
+
 Provides:
 
 - Horizontal and tilted plane irradiance  
 - Direct + diffuse solar components  
 - Inputs to shading models
 
-#### 3. Wind-Dependent Models
+**Wind-Dependent Models**
+
 Wind data supports:
 
 - Infiltration + natural ventilation models  
@@ -928,9 +1020,9 @@ Wind data supports:
 
 ---
 
-### 📝 4.6 Weather Data Summary
+### :material-note-text-outline: Summary
 
-!!! note "🔧 Key Notes"
+!!! note "material-wrench-outline: Key Notes"
     - Must provide a **continuous time series** with a fixed time step  
     - Must include **sufficient weather variables**.  
       For example, **global horizontal irradiance (GHI)** is enough for solar modeling if other radiation terms are unavailable, and **air temperature + relative humidity (or dew point)** are sufficient since other psychrometric quantities can be derived.
@@ -939,17 +1031,15 @@ Wind data supports:
 
 ---
 
-# 5. Solar Position Input
-
-## 5.1 Hourly Sun Position Data  
-:material-file-document-outline: `Input_cosine_zenith.txt`
+## 5. Solar Position Input
+:material-file-document-outline: File Reference: `Input_cosine_zenith.txt`
 
 <figure markdown>
   ![Cosine Zenith Example](assets/input_cosine_zenith.png){ width="50%" loading=lazy }
   <figcaption>Hourly sun position data</figcaption>
 </figure>
 
-### 🔍 5.1 Purpose
+### :material-magnify: Purpose
 
 `Input_cosine_zenith.txt` stores **precomputed solar geometry parameters** that are required throughout the CityBEM simulation.  
 By preparing these values in advance, CityBEM avoids repeated solar-position calculations, improving computational efficiency during shading and irradiance evaluation.
@@ -965,7 +1055,7 @@ By preparing these values in advance, CityBEM avoids repeated solar-position cal
 
 ---
 
-### 📄 5.2 Typical Content
+### :material-note-text: Typical Content
 
 For each simulation timestep (typically hourly), `Input_cosine_zenith.txt` contains:
 
@@ -976,7 +1066,7 @@ These parameters are generated during the preprocessing stage to ensure consiste
 
 ---
 
-### ⚙️ 5.3 Functional Role in CityBEM
+### :material-cogs: Role in CityBEM
 
 The stored solar-geometry values are used throughout the solar and shading pipeline:
 
@@ -995,14 +1085,14 @@ The stored solar-geometry values are used throughout the solar and shading pipel
 
 ---
 
-## 5. Simulation Settings
+## :material-cog: 6. Simulation Settings
 
 This section collects the files and parameters that control CityBEM runs at city scale. The layout below is designed for clarity and quick configuration reference.
 
 ---
 
-### 5.1 General Settings  
-:material-file-document-outline: `Input_general_settings.txt`
+### 6.1 General Settings  
+:material-file-document-outline: File Reference: `Input_general_settings.txt`
 
 !!! abstract "Purpose"
     This file defines **global simulation flags and modes** that control how CityBEM behaves at runtime.  
@@ -1010,7 +1100,7 @@ This section collects the files and parameters that control CityBEM runs at city
 
 ---
 
-#### Key Controls (clean overview)
+#### Key Controls
 
 | Group | Typical Parameters | Why it matters |
 |------|--------------------|----------------|
@@ -1029,8 +1119,8 @@ This section collects the files and parameters that control CityBEM runs at city
 
 ---
 
-### 5.2 City-Scale Simulation Settings
-:material-file-document-outline: `Input_City_scale_settings.txt`
+### 6.2 Simulation Settings
+:material-file-document-outline: File Reference: `Input_City_scale_settings.txt`
 
 <figure markdown>
   ![City-Scale Simulation Settings](assets/input_city_scale_settings.png){ width="100%" loading=lazy }
@@ -1042,7 +1132,7 @@ This file defines the **central configuration parameters** used to control CityB
 
 ---
 
-#### City-Scale Settings Table
+#### Detailed Setting Table
 
 | Parameter | Value | Description |
 |----------|-------|-------------|
@@ -1086,8 +1176,8 @@ This file defines the **central configuration parameters** used to control CityB
 
 ---
 
-# 6. Result Selection
-:material-file-document-outline: `Input_City_scale_result_selection.txt`
+## 7. Result Selection
+:material-file-document-outline: File Reference: `Input_City_scale_result_selection.txt`
 
 <div align="center">
   <img src="assets/input_result_selection.png" alt="CityBEM Result Selection File" width="80%">
@@ -1106,7 +1196,7 @@ Each row typically represents one **output variable**.
 - Print flag (Y/N) – whether to output this variable at all
 - Transient output flag (Y/N) – whether to store time series for each timestep or only aggregate values
 
-### Typical Variable Categories
+### Variable Categories
 
 - Indoor temperatures (air, mean radiant, surface)
 - Thermal loads (heating, cooling)
@@ -1125,20 +1215,38 @@ Each row typically represents one **output variable**.
 
 ---
 
-# ✅ Summary
+---
 
-This page documents all **input files** required to run CityBEM V2, the role of each file, and the main parameters controlling city-scale building energy simulations.
+## :material-check-all: 8. Input Summary
 
-Before running a simulation, users should ensure:
+This section concludes the documentation by providing a final checklist and key takeaways. This page has documented all **input files** required to run CityBEM V2, detailing the role of each file and the main parameters controlling city-scale building energy simulations.
 
-- All input text files are:
-  - Properly formatted (tab-separated, consistent headers)
-  - Free of missing values in critical columns
-- IDs and codes are **consistent across files**:
-  - `building_id` matches between building info, geometry, and outputs
-  - `usage_type_code` and year classes correctly map to archetype definitions
-- Weather data fully covers the desired simulation period with a timestep consistent with the settings.
-- Geometry is provided in CityBEM-compliant STL format, respecting the coordinate system.
-- Result selection is carefully configured to capture required outputs without generating unnecessary data.
+---
 
-For concrete examples, sample files, and case studies, refer to the **Test Cases** section of the documentation.
+### :material-alert-decagram-outline: Simulation Checklist
+
+Before initiating any simulation run, users must ensure the following critical conditions are met across all input files:
+
+| Checkpoint | Requirement | Details |
+| :--- | :--- | :--- |
+| **:material-check: Data Integrity & Formatting** | All input text files must be properly formatted (tab-separated). | Must be **free of missing values** in critical columns. |
+| **:material-link: Consistency & Mapping** | IDs and codes must be consistent across files. | Ensures `building_id`, `usage_type_code`, and year classes correctly map to archetypes. |
+| **:material-weather-cloudy: Weather Data** | Must fully cover the desired simulation period. | Time step must be consistent with the global settings. |
+| **:material-cube-scan: Geometry** | Must be provided in **CityBEM-compliant STL format**. | Strict adherence to the required coordinate system is necessary. |
+| **:material-database-export: Output Control** | Result selection must be carefully configured. | Captures required outputs without generating unnecessary, large data files. |
+
+---
+
+### :material-lightbulb-on-outline: Next Steps and Resources
+
+!!! success "Test Cases and Validation"
+
+    For **concrete examples, sample input files, and detailed case studies**, navigate to the dedicated **Test Cases** section of the documentation. Working through these examples is the best way to ensure your custom inputs are correctly structured and to validate your initial simulation setup.
+
+    [**EXPLORE TEST CASES**](examples.md){ .md-button .md-button--primary }
+
+---
+
+### Final Note
+
+CityBEM V2 is designed to remain **lightweight, extendable, and developer-friendly**. Compiling from source ensures maximum compatibility and performance for large-scale city simulations.

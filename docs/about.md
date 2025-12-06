@@ -1,4 +1,5 @@
-# 👥 About Us
+# :material-information-outline: About Us
+
 
 <div align="center">
   <img src="../assets/aboutus.png" alt="About Us" width="20%">

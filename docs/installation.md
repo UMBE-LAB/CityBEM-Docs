@@ -1,152 +1,161 @@
-# Installation
+# :material-cog-outline: CityBEM V2 Installation and Build Guide
 
-CityBEM V2 is implemented in modern **C++17** for high-performance city-scale simulation.  
-The framework is compiled using **Microsoft Visual Studio 2022 (MSVC v143)** and includes optional Python utilities for preprocessing, automation, and visualization.
-
-This guide explains how to install, compile, and run CityBEM V2 from source.
+CityBEM V2 is a high-performance city-scale simulation framework implemented in modern **C++17** and compiled using **Microsoft Visual Studio 2022 (MSVC v143)**. This comprehensive guide details the setup, compilation, and execution of the solver, including optional Python utilities.
 
 ---
 
-## 1. Requirements
+## 1. Core Requirements & Environment Setup
 
-### **Core Software**
-To build the C++ solver:
+To successfully build the C++ solver from source, the following software and precise configurations are mandatory:
 
-  - Microsoft Visual Studio 2022
-  - Workload: Desktop development with C++
-  - Platform Toolset: MSVC v143
-  - Windows SDK Version: 10.0 (latest installed version)  
-  - C++ Language Standard: ISO C++17 (/std:c++17)
-  - Git Bash  Required for cloning and managing CityBEM V2 source code.
+### :material-laptop: Development Environment
 
-<div style="background-color: #e8f1ff; padding: 14px; border-left: 4px solid #2f81f7; border-radius: 6px; margin-top: 12px;">
-  <strong>Download The Latest Version of Visual Studio:</strong><br>
-  <a href="https://visualstudio.microsoft.com/" target="_blank" style="font-size: 15px; color: #0a58ca; font-weight: 600; text-decoration: none;">
-    https://visualstudio.microsoft.com/
-  </a>
-</div>
+| Requirement | Details |
+| :--- | :--- |
+| **Compiler** | **Microsoft Visual Studio 2022** |
+| **Workload** | Desktop development with C++ |
+| **Toolset** | MSVC v143 |
+| **Language Standard** | ISO C++17 (`/std:c++17`) |
+| **Version Control** | **Git** (for cloning and source management) |
+| **Windows SDK Version** | 10.0 (latest installed) |
 
-### **Optional: Python Tools**
-Python utilities assist with:
-- Input pre-processing  
-- Batch simulation automation  
-- Time-series and spatial post-processing  
-- Optional 3D visualization  
+!!! info "Visual Studio Download"
 
-Install Python (3.10+) and run:
+    Install the latest version of **Microsoft Visual Studio 2022** and ensure the ***Desktop Development with C++*** workload is selected during installation.
 
-```bash
-pip install numpy pandas matplotlib pyvista
-```
+    👉 [Download Visual Studio](https://visualstudio.microsoft.com/){:target="_blank"}
 
 ---
 
-## 2. Clone the Repository
+## :material-code-tags: 2. Source Code Acquisition
 
-Download the CityBEM V2 source code using Git:
+Obtain the CityBEM V2 source code by cloning the repository using Git. This downloads the codebase from the remote server to your local machine.
 
-```bash
-git clone https://example.git/CityBEM.git
-cd CityBEM
-```
+### :material-console-line: Cloning Steps
 
-<div style="background-color: #fff3cd; padding: 12px; border-left: 4px solid #ffca2c; border-radius: 4px; margin-top: 10px;">
-<strong>Important:</strong> The official open-source CityBEM V2 repository is <strong>not yet published</strong>.<br>
-This is only a placeholder URL. The public release will be announced once the repository is available.
-</div>
+1.  **Navigate to Path:** Open your preferred terminal (Git Bash, PowerShell, etc.) and use `cd` to navigate to your desired project directory (e.g., `Documents` or `Projects`).
+    * *Example:*
+        ```bash
+        cd C:\Users\YourName\Documents\GitHub
+        ```
 
----
+2.  **Clone Repository:** Execute the `git clone` command.
+    ```bash
+    git clone [https://example.git/CityBEM.git](https://example.git/CityBEM.git)
+    ```
 
-## 3. Build CityBEM V2 from Source (Visual Studio 2022)
+3.  **Enter Directory:** Navigate into the newly created project folder.
+    ```bash
+    cd CityBEM
+    ```
 
-CityBEM V2 ships as a modern C++17 Visual Studio project.  
-Your project settings (from your screenshots) confirm correct configuration.
+!!! warning "Important Notice: Placeholder URL"
 
-### ✔ Visual Studio Project Settings (Already Configured)
-
-| Setting | Value |
-|--------|-------|
-| **Platform Toolset** | Visual Studio 2022 (v143) |
-| **Windows SDK Version** | 10.0 (Latest Installed) |
-| **C++ Language Standard** | ISO C++17 (/std:c++17) |
-| **Debug Information Format** | Program Database (/ZI) |
-| **Warning Level** | Level 3 (/W3) |
-| **SDL Checks** | Enabled (/sdl) |
-| **Optimization (Release)** | Maximize Speed (/O2) |
-
-### **Step-by-Step Build Instructions**
-
-#### **Step 1 — Open the Project**
-- Launch **Visual Studio 2022**
-- Choose **Open a local folder**  
-  or open the included `CityBEM.sln` file  
-- Visual Studio will automatically configure the project
-
-#### **Step 2 — Select Build Mode**
-- Choose **Release x64** for simulation performance  
-- Or **Debug x64** for development and testing
-
-#### **Step 3 — Build the Executable**
-Press:
-
-```
-Ctrl + Shift + B
-```
-
-The compiled solver will appear in:
-
-```
-/out/build/x64-Release/CityBEM.exe
-```
-
-Or the corresponding Debug directory.
+    The official open-source **CityBEM V2 repository is not yet published**. The URL provided is a placeholder. The public release will be announced once the repository is available.
 
 ---
 
-## 4. Running CityBEM V2
+## :material-hammer-wrench: 3. Building the Executable
 
-After compiling, you can run the solver via the command line:
+### :material-cog-outline: Required Build Settings
 
-```bash
-./CityBEM.exe path/to/config.yaml
-```
+The following C++ settings, configured within Visual Studio, ensure optimal compilation and security:
 
-Typical workflow:
-1. Prepare your building and city input data  
-2. Configure the simulation parameters in a YAML file  
-3. Run the solver  
-4. Use Python tools for post-processing (optional)
+| Setting | Required Value | Purpose |
+| :--- | :--- | :--- |
+| **Optimization (Release)** | Maximize Speed (`/O2`) | Applies maximum optimization for high-performance execution. |
+| **Debug Information Format** | Program Database (`/ZI`) | Enables detailed debugging for development builds. |
+| **SDL Checks** | Enabled (`/sdl`) | Enforces Security Development Lifecycle checks. |
+| **Warning Level** | Level 3 (`/W3`) | Sets the compiler to report standard warning levels. |
 
----
+!!! note "Git LFS Configuration"
 
-## 5. Optional: Python Tools for Automation & Visualization
+    Ensure **Git LFS (Large File Storage)** is properly configured. CityBEM V2 may rely on it for managing large binary files and data assets required during compilation.
 
-Install Python utilities:
+### :material-console-line: Build Execution
 
-```bash
-pip install numpy pandas matplotlib pyvista
-```
-
-You may use Python scripts to:
-- Automate multi-scenario runs  
-- Analyze output time-series  
-- Visualize temperature, fluxes, and system variables  
-- Create 3D visualizations with PyVista  
+1.  **Open Solution:** Launch **Visual Studio 2022** and open the solution file: `CityBEM.sln`.
+2.  **Select Configuration:** Choose either **`Release | x64`** (recommended for simulation speed) or **`Debug | x64`** (for development and troubleshooting).
+3.  **Compile:** Initiate the build process using the standard shortcut:
+    ```
+    Ctrl + Shift + B
+    ```
+The compiled solver executable will be found in the designated output folder (e.g., `/out/build/x64-Release/CityBEM.exe`).
 
 ---
 
-## 6. Optional: Build Documentation Locally
+## :material-run: 4. Running CityBEM V2
 
-If contributing to documentation:
+The executable requires all necessary input files to be located **in the same directory** as the solver for the simulation to run correctly.
 
-```bash
-pip install mkdocs-material
-mkdocs serve
-```
+### :material-console-line: Execution Steps
 
-This launches a live local preview of the CityBEM V2 documentation.
+1.  **Preparation:** Copy all required simulation input files (configuration, scenario data, etc.) into the executable's build directory (e.g., `/out/build/x64-Release/`).
+2.  **Navigate Terminal:** Use `cd` to change the working directory to the executable's location.
+3.  **Execute Solver:** Run the following command:
+    ```bash
+    ./CityBEM.exe
+    ```
 
 ---
 
-CityBEM V2 is designed to remain lightweight, extendable, and developer‑friendly.  
-Compiling from source ensures maximum compatibility and performance for large-scale city simulations.
+## :material-language-python: 5. Optional: Python Tools for Automation & Analysis
+
+Integrating Python provides powerful capabilities for advanced data analysis, workflow automation, and visualization of CityBEM V2 results.
+
+### :material-function: Python Tool Capabilities
+
+* **Input Pre-processing** and **Batch Simulation Automation**.
+* **Time-Series and Spatial Post-processing** (analysis of outputs like energy fluxes).
+* **Optional 3D Visualization** using specialized libraries.
+
+### :material-wrench-outline: Installation and Setup
+
+#### :material-language-python: Install Python 3.10+
+
+1.  **Requirement:** Python version **3.10 or newer** is required.
+
+2.  **Download:** Obtain the latest stable version:
+
+    !!! tip "Download Python"
+
+        [**Download Python 3.10+**](https://www.python.org/downloads/){:target="_blank"}
+
+!!! warning "Important Note for Windows Users"
+
+    During installation, ensure you check the box **"Add python.exe to PATH"**.
+
+#### Install Required Libraries
+
+* **Open Terminal** and run the following command to install the recommended packages:
+
+    ```bash
+    pip install numpy pandas matplotlib pyvista
+    ```
+
+!!! tip "Virtual Environment"
+
+    We strongly recommend using a virtual environment (**Conda** or **venv**) to isolate these dependencies.
+
+---
+
+## :material-book-open-page-variant: 6. Optional: Build Documentation Locally
+
+If you are **contributing to the CityBEM V2 documentation** or wish to view it locally before deployment, install the necessary tools and run the local server.
+
+### :material-wrench-outline: Installation and Serving
+
+1.  **Install Package:** Install MkDocs with the Material theme using `pip`:
+    ```bash
+    pip install mkdocs-material
+    ```
+2.  **Launch Server:** From the project root (where `mkdocs.yml` is), run:
+    ```bash
+    mkdocs serve
+    ```
+
+The local preview will be accessible in your web browser, typically at: `http://127.0.0.1:8000`. Changes to source files automatically refresh the page.
+
+***
+
+CityBEM V2 is designed to remain lightweight, extendable, and developer‑friendly. Compiling from source ensures maximum compatibility and performance for large-scale city simulations.

@@ -24,7 +24,7 @@ CityBEM supports two complementary output-generation modes.
 
 ---
 
-### :material-file-document-outline: 1. Single Output File per Urban Area
+### :material-file-document-outline: Single Output File
 
 A unified file is produced containing **all buildings** in the simulation domain.
 
@@ -44,7 +44,7 @@ A unified file is produced containing **all buildings** in the simulation domain
 
 ---
 
-### :material-file-multiple: 2. Separate File per Output Variable
+### :material-file-multiple: Separate Files
 
 Each activated variable is exported to its **own transient file**, enabling fine-grained control and lightweight visualization.
 
@@ -81,7 +81,7 @@ Use:
 
 ---
 
-### :material-format-list-bulleted-type: Output Variables Table
+### :material-format-list-bulleted-type: Output Variables
 
 ## **Outputs Table**
 

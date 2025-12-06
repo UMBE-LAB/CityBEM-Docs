@@ -1,8 +1,8 @@
-# 🏙️ CityBEM (City Building Energy Model)
+# :material-city-variant-outline: CityBEM V2 (City Building Energy Model)
 
 Welcome to the official documentation of CityBEM V2 — an advanced, lightweight, and scalable Urban Building Energy Modeling (UBEM) framework designed for high-resolution, city-scale simulations with outstanding computational efficiency.
 
-### CityBEM Overview
+### CityBEM V2 Overview
 
 <figure markdown>
   ![CityBEM city-scale simulation](assets/citybem_overview.png){ width="100%" loading=lazy }
@@ -18,7 +18,7 @@ Welcome to the official documentation of CityBEM V2 — an advanced, lightweight
 
 ---
 
-## 🚀 What is CityBEM V2?
+## :material-rocket-launch: What is CityBEM V2?
 
 **CityBEM V2 integrates cutting-edge modules for:**
 
@@ -38,7 +38,7 @@ Welcome to the official documentation of CityBEM V2 — an advanced, lightweight
 
 ---
 
-## 🚀 Key Capabilities
+## :material-cog-play: Key Capabilities
 
 <div class="grid cards" markdown>
 
@@ -61,7 +61,7 @@ Welcome to the official documentation of CityBEM V2 — an advanced, lightweight
 
 ---
 
-## 📘 Explore the Documentation
+## :material-book-open-page-variant: Explore the Documentation
 
 <div class="grid cards" markdown>
 
@@ -91,14 +91,14 @@ Welcome to the official documentation of CityBEM V2 — an advanced, lightweight
 
 </div>
 
-## 🔍 How to Navigate
+## :material-magnify: How to Navigate
 
 Use the **left sidebar** to jump between modules, examples, and detailed documentation.  
 Each page includes diagrams, workflows, and code snippets to help you replicate large-scale UBEM and PV simulations.
 
 ---
 
-## 🤝 Need Help?
+## :material-lifebuoy: Need Help?
 
 Visit the **Contact** page for supervision and collaboration details.
 Visit the **Contact** page for supervision and collaboration details.

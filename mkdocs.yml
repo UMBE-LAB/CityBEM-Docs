@@ -33,8 +33,7 @@ nav:
   - Building Energy Modeling: building_energy_modeling.md
   - Rooftop PV Model: pv_model.md
   - Microclimate Co-Simulation: microclimate.md
-  - Test Cases:
-      - Rooftop PV Montreal Case: examples/rooftoppv_montreal.md
+  - Test Cases: examples.md
   - Publications: publications.md
   - About Us: about.md
   - Contact: contact.md

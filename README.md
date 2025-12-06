@@ -9,7 +9,7 @@ workflow in other UBEMs.
 
 ------------------------------------------------------------------------
 
-## 📁 Repository Structure
+## :material-folder: Repository Structure
 
 ```text
 CityBEM-Docs/
@@ -44,23 +44,22 @@ CityBEM-Docs/
 
 ------------------------------------------------------------------------
 
-## 🧩 What This Repo Contains
+## :material-extension-puzzle: What This Repo Contains
 
 -   **All documentation for the CityBEM UBEM framework**
 -   **Input data schema description** for the Citywide Building Data
     Arrays (CBDAs)
 -   **Workflows** for:
-    -   Rooftop PV modeling\
-    -   Shading analysis\
-    -   PV array design\
-    -   UBEM simulation pipeline\
+    -   Rooftop PV modeling
+    -   Shading analysis
+    -   PV array design
+    -   UBEM simulation pipeline
 -   **Usage examples** and reproducible workflows
 -   **Figures and diagrams** for visualization
 -   **MkDocs configuration** for building a documentation website
 
 ------------------------------------------------------------------------
-
-## 🔄 Documentation Workflow
+## :material-sync: Documentation Workflow
 
                 +------------------+
                 |  Write / Update  |
@@ -88,7 +87,7 @@ CityBEM-Docs/
 
 ------------------------------------------------------------------------
 
-## 🚀 How to Use This Repo
+## :material-rocket-launch: How to Use This Repo
 
 1.  Browse the **`docs/`** folder to find the documentation you need.
 
@@ -116,7 +115,7 @@ CityBEM-Docs/
 
 ------------------------------------------------------------------------
 
-## 🤝 How to Contribute
+## :material-handshake: How to Contribute
 
 1.  **Fork** the repository.
 
@@ -132,7 +131,7 @@ CityBEM-Docs/
 
 ------------------------------------------------------------------------
 
-## 🏙️ About CityBEM
+## :material-city: About CityBEM
 
 CityBEM is a computationally efficient UBEM engine capable of
 large-scale, high-resolution transient building simulation, rooftop PV

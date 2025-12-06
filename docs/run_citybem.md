@@ -4,7 +4,7 @@ CityBEM V2 provides a **fast, robust, and highly scalable execution workflow** f
 
 ---
 
-## ⚙️ 1. Running the CityBEM Executable
+## :material-play-circle-outline: 1. Running the CityBEM Executable
 
 Once the CityBEM V2 source code is compiled, the build process generates the executable:
 
@@ -44,7 +44,7 @@ CityBEM will automatically load all necessary files and start the simulation.
 
 ---
 
-## 🧩 2. Folder Structure for Running Simulations
+## :material-puzzle: 2. Folder Structure for Running Simulations
 
 A typical directory for running simulations should look like this:
 
@@ -75,14 +75,14 @@ CityBEM automatically creates output files based on your Result Selection file.
 
 ---
 
-## 🚀 3. Running CityBEM for Large Urban Regions
+## :material-rocket: 3. Running CityBEM for Large Urban Regions
 
 CityBEM V2 is extremely efficient—**about 2 seconds per building** for a full-year simulation (depending on CPU performance and enabled modules).  
 However, for very large geometries (50k–300k+ buildings), **parallel execution** is recommended.
 
 ---
 
-## 🧵 4. Parallel Multi-Directory Workflow (Recommended)
+## :material-threads-multiple: 4. Parallel Multi-Directory Workflow (Recommended)
 
 To run several segments of a large urban area in parallel:
 
@@ -202,7 +202,7 @@ This launches **multiple CPU cores** running multiple CityBEM simulations simult
 
 ---
 
-## 🌆 5. Scaling to 300,000+ Buildings
+## :material-city: 5. Scaling to 300,000+ Buildings
 
 Using the multi-directory parallel approach, CityBEM can simulate **entire cities** efficiently:
 
@@ -214,7 +214,7 @@ At ~2 seconds per building, even massive metropolitan regions become computable.
 
 ---
 
-## 📤 6. After Running — Where Are the Results?
+## :material-upload: 6. After Running — Where Are the Results?
 
 Each directory will generate:
 
@@ -228,14 +228,14 @@ These outputs can be directly visualized or imported into GIS dashboards, Python
 
 ---
 
-## 🎯 Summary
+## :material-target: Summary
 
 CityBEM V2 offers:
 
-- **Simple one-click execution** using the compiled executable  
-- **Flexible input management**  
-- **High-speed simulation** for small and large-scale studies  
-- **Built-in support for parallel execution**  
-- **Scalable workflows for entire metropolitan regions**
+- Simple one-click execution using the compiled executable  
+- Flexible input management 
+- High-speed simulation for small and large-scale studies  
+- Built-in support for parallel execution
+- Scalable workflows for entire metropolitan regions
 
-With proper input preparation and parallel directory structuring, CityBEM can efficiently handle **city-scale UBEM and PV simulations at unprecedented speed**.
+With proper input preparation and parallel directory structuring, CityBEM can efficiently handle city-scale UBEM and PV simulations at unprecedented speed.
