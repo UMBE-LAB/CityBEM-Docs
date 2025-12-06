@@ -1,61 +1,131 @@
-# CityBEM Documentation
+# CityBEM-Docs
 
-This repository contains the full documentation for **CityBEM**, including user guides, model descriptions, input structures, examples, and asset files used for building and deploying the online documentation website.
+This repository hosts the public documentation for **CityBEM**, a
+flexible and scalable Urban Building Energy Modeling (UBEM) framework
+designed for large-area, high-resolution simulations.\
+It includes user guides, data schemas, PV workflow documentation,
+framework explanations, and examples for replicating the CityBEM
+workflow in other UBEMs.
 
-Documentation is generated using **MkDocs** with the `mkdocs-material` theme and deployed automatically through GitHub Pages.
-
----
+------------------------------------------------------------------------
 
 ## 📁 Repository Structure
 
-### `docs/`
-The main documentation directory. Each Markdown file corresponds to a section of the published website.
+    CityBEM-Docs/
+    │
+    ├── docs/                     # Main documentation source files
+    │   ├── index.md             # Main landing page
+    │   ├── overview.md          # High-level introduction to the framework
+    │   ├── installation.md      # How to install & run CityBEM
+    │   ├── data_inputs.md       # Detailed explanation of input arrays
+    │   ├── pv_workflow.md       # Rooftop PV modeling workflow
+    │   ├── shading_tool.md      # Inter-building shading tool documentation
+    │   ├── view_factor.md       # (Future) View-factor tool documentation
+    │   └── examples/            # Usage examples & tutorials
+    │
+    ├── assets/                  # Figures, diagrams, icons used in docs
+    │
+    ├── .github/
+    │   └── workflows/           # GitHub Pages / CI workflows
+    │
+    ├── mkdocs.yml               # MkDocs configuration for building the website
+    └── README.md                # This file
 
-Key files include:
-- `index.md` — homepage  
-- `installation.md` — installation and setup  
-- `data_inputs.md` — full input structure documentation  
-- `pv_model.md` — rooftop PV model  
-- `building_energy_modeling.md` — CityBEM engine documentation  
-- `microclimate.md` — microclimate modeling  
-- `solar_radiation.md` — solar radiation computations  
-- `outputs.md` — output definitions  
-- `run_citybem.md` — how to run the model  
+------------------------------------------------------------------------
 
-### `docs/assets/`
-Contains all figures, diagrams, screenshots, and illustrations used across the documentation.
+## 🧩 What This Repo Contains
 
-### `docs/examples/`
-Contains example input files or demonstration cases.
+-   **All documentation for the CityBEM UBEM framework**
+-   **Input data schema description** for the Citywide Building Data
+    Arrays (CBDAs)
+-   **Workflows** for:
+    -   Rooftop PV modeling\
+    -   Shading analysis\
+    -   PV array design\
+    -   UBEM simulation pipeline\
+-   **Usage examples** and reproducible workflows
+-   **Figures and diagrams** for visualization
+-   **MkDocs configuration** for building a documentation website
 
-### `docs/javascripts/` & `docs/stylesheets/`
-Optional custom JavaScript and CSS for extending the MkDocs site.
+------------------------------------------------------------------------
 
-### `.github/workflows/deploy.yml`
-GitHub Actions workflow for automatically building and deploying the documentation.
+## 🔄 Documentation Workflow
 
-### `.venv/`
-Local virtual environment (used only for local builds).
+                +------------------+
+                |  Write / Update  |
+                |  .md Documents   |
+                +---------+--------+
+                          |
+                          v
+                +------------------+
+                |   MkDocs Builds  |
+                |   Static Pages   |
+                +---------+--------+
+                          |
+                          v
+                +------------------+
+                | Git Push to Main |
+                +---------+--------+
+                          |
+                          v
+                +---------------------------+
+                | GitHub Pages Deployment   |
+                | (Automatic via Workflow)  |
+                +---------------------------+
 
-### `mkdocs.yml`
-Main MkDocs configuration file (theme, navigation, plugins, extra CSS/JS, site metadata).
+            User View: https://<username>.github.io/CityBEM-Docs/
 
----
+------------------------------------------------------------------------
 
-## 🔄 Repository Workflow Diagram
+## 🚀 How to Use This Repo
 
-The following diagram illustrates the full workflow from editing documentation to deployment:
+1.  Browse the **`docs/`** folder to find the documentation you need.
 
-```mermaid
-flowchart TD
+2.  To view the full documentation site locally:
 
-A[Edit Markdown Files<br/>docs/*.md] --> B[Local MkDocs Build<br/>mkdocs serve]
-B --> C[Preview Website Locally<br/>localhost:8000]
+    ``` bash
+    pip install mkdocs mkdocs-material
+    mkdocs serve
+    ```
 
-A --> D[Push to GitHub Repo<br/>main branch]
+    Then open:\
+    **http://127.0.0.1:8000**
 
-D --> E[GitHub Actions Workflow<br/>.github/workflows/deploy.yml]
-E --> F[Build MkDocs Site<br/>mkdocs build]
-F --> G[Deploy to GitHub Pages]
+3.  Edit any `.md` file to update documentation.
 
-G --> H[Live Documentation Website<br/>https://UMBE-LAB.github.io/CityBEM-Docs]
+4.  Commit your changes:
+
+    ``` bash
+    git add .
+    git commit -m "Update documentation"
+    git push
+    ```
+
+5.  GitHub Pages will automatically rebuild the website.
+
+------------------------------------------------------------------------
+
+## 🤝 How to Contribute
+
+1.  **Fork** the repository.\
+
+2.  **Create a new branch**:
+
+    ``` bash
+    git checkout -b feature/my-improvement
+    ```
+
+3.  Add or update Markdown files inside the `docs/` directory.\
+
+4.  Submit a **pull request** with a clear explanation.
+
+------------------------------------------------------------------------
+
+## 🏙️ About CityBEM
+
+CityBEM is a computationally efficient UBEM engine capable of
+large-scale, high-resolution transient building simulation, rooftop PV
+analysis, and urban-scale scenario studies.\
+Its modular architecture allows integration of shading tools, PV models,
+and future components such as view-factor engines and grid-coupled
+simulations.
