@@ -9,7 +9,9 @@ workflow in other UBEMs.
 
 ------------------------------------------------------------------------
 
-## :material-folder: Repository Structure
+## 📁 Welcome to CityBEM V2 Repository
+
+This tree shows the layout of the source files (`.md`) used by MkDocs to generate the CityBEM V2 documentation website.
 
 ```text
 CityBEM-Docs/
@@ -45,7 +47,7 @@ CityBEM-Docs/
 
 ------------------------------------------------------------------------
 
-## :material-extension-puzzle: What This Repo Contains
+## 🧩 What This Repo Contains
 
 -   **All documentation for the CityBEM UBEM framework**
 -   **Input data schema description** for the Citywide Building Data
@@ -60,7 +62,7 @@ CityBEM-Docs/
 -   **MkDocs configuration** for building a documentation website
 
 ------------------------------------------------------------------------
-## :material-sync: Documentation Workflow
+## 🔄 Documentation Workflow
 
                 +------------------+
                 |  Write / Update  |
@@ -88,7 +90,7 @@ CityBEM-Docs/
 
 ------------------------------------------------------------------------
 
-## :material-rocket-launch: How to Use This Repo
+## 🚀 How to Use This Repo
 
 1.  Browse the **`docs/`** folder to find the documentation you need.
 
@@ -116,7 +118,7 @@ CityBEM-Docs/
 
 ------------------------------------------------------------------------
 
-## :material-handshake: How to Contribute
+## 🤝 How to Contribute
 
 1.  **Fork** the repository.
 
@@ -132,7 +134,7 @@ CityBEM-Docs/
 
 ------------------------------------------------------------------------
 
-## :material-city: About CityBEM
+## 🏙️ About CityBEM
 
 CityBEM is a computationally efficient UBEM engine capable of
 large-scale, high-resolution transient building simulation, rooftop PV
