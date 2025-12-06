@@ -6,7 +6,7 @@
 
 ---
 
-## 👨‍💻 Lead Developer
+## :material-laptop: Lead Developer
 
 <div style="display: flex; align-items: center; justify-content: flex-start; gap: 40px; flex-wrap: wrap; margin-top: 30px;">
 
@@ -51,7 +51,7 @@
 
 ---
 
-## 🧑‍💼 Supervision
+## :material-account-supervisor-outline: Supervision
 
 <div class="grid cards" markdown>
 

@@ -8,7 +8,8 @@ Below is a curated list of peer-reviewed journal articles related to CityBEM, UB
 
 <div class="paper" markdown>
 
-#### Development of a 3D Ray-Tracing Solar Shading Model for Urban Building Energy Simulation  
+**Development of a 3D Ray-Tracing Solar Shading Model for Urban Building Energy Simulation**  
+
 *Rayegan, S., Mortezazadeh, M., Zhan, D., Katal, A., Wang, L.L., Zmeureanu, R., Eicker, U., & Ranjbar, S.*  
 *Renewable Energy*, 256, 123883.  
 
@@ -23,7 +24,8 @@ Below is a curated list of peer-reviewed journal articles related to CityBEM, UB
 
 <div class="paper" markdown>
 
-#### Modeling Building Energy Self-Sufficiency of Using Rooftop Photovoltaics on an Urban Scale  
+**Modeling Building Energy Self-Sufficiency of Using Rooftop Photovoltaics on an Urban Scale**
+
 *Rayegan, S., Katal, A., Wang, L.L., Zmeureanu, R., Eicker, U., Mortezazadeh, M., & Tahmasebi, S.*  
 *Energy and Buildings*, 324, 114863.  
 
@@ -38,7 +40,8 @@ Below is a curated list of peer-reviewed journal articles related to CityBEM, UB
 
 <div class="paper" markdown>
 
-#### Achieving Carbon Neutrality at Single and Multi-Building Complex Levels – A Review  
+**Achieving Carbon Neutrality at Single and Multi-Building Complex Levels – A Review**
+
 *Rayegan, S., Wang, L.L., Zmeureanu, R., Katal, A., Mortezazadeh, M., Moore, T., Ge, H., Lacasse, M., & Shi, Y.*  
 *Energy and Buildings*, 314, 114263.  
 
@@ -53,7 +56,8 @@ Below is a curated list of peer-reviewed journal articles related to CityBEM, UB
 
 <div class="paper" markdown>
 
-#### Urban Building Energy and Microclimate Modeling – From 3D City Generation to Dynamic Simulations  
+**Urban Building Energy and Microclimate Modeling – From 3D City Generation to Dynamic Simulations**
+
 *Katal, A., Mortezazadeh, M., Wang, L.L., & Yu, H.*  
 *Energy*, 251, 123817.  
 
@@ -68,7 +72,8 @@ Below is a curated list of peer-reviewed journal articles related to CityBEM, UB
 
 <div class="paper" markdown>
 
-#### Modeling Building Resilience Against Extreme Weather by Integrated CityFFD and CityBEM Simulations  
+**Modeling Building Resilience Against Extreme Weather by Integrated CityFFD and CityBEM Simulations**
+ 
 *Katal, A., Mortezazadeh, M., & Wang, L.L.*  
 *Applied Energy*, 250, 1402–1417.  
 
