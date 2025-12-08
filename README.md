@@ -151,7 +151,7 @@ To publish your documentation online, push your committed changes to the remote 
 
 ------------------------------------------------------------------------
 
-## :material-city-variant-outline: About CityBEM
+## :material-city-variant-outline:{ .lg }  About CityBEM
 
 CityBEM is a computationally efficient UBEM engine capable of
 large-scale, high-resolution transient building simulation, rooftop PV
