@@ -64,14 +64,18 @@ CityBEM-Docs/
 ------------------------------------------------------------------------
 ## 🔄 Documentation Workflow
 
+---
+## <icon>autorenew</icon> Documentation Workflow
+
+### **Flowchart**
+
 ```mermaid
 graph TD
-
-    A["📝 Write / Update .md Documents"] --> B
-    B["⚙️ Run MkDocs Local Preview"] --> C
-    C["📤 Commit & Git Push to Main"] --> D
-    D["🚀 GitHub Pages Deployment (Automatic)"] --> E
-    E["🌐 Live Documentation"]
+    A["Write / Update .md Documents"] --> B
+    B["Run MkDocs Local Preview"] --> C
+    C["Commit & Git Push to Main"] --> D
+    D["GitHub Pages Deployment (Automatic)"] --> E
+    E["Live Documentation"]
 
     style A fill:#E0F7FA, stroke:#00BCD4, stroke-width:2px, color:#000
     style B fill:#FFFDE7, stroke:#FFEB3B, stroke-width:2px, color:#000
