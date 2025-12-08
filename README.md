@@ -90,9 +90,7 @@ CityBEM-Docs/
 
 ------------------------------------------------------------------------
 
-## 🚀 How to Use This Repo
-
-## <icon>rocket_launch</icon> How to Use This Repository
+## 🚀 How to Use This Repository
 
 This guide walks you through setting up the local documentation server, making edits, and publishing your changes.
 
