@@ -64,12 +64,16 @@ CityBEM-Docs/
 ------------------------------------------------------------------------
 ## 🔄 Documentation Workflow
 
+## 🔄 Documentation Workflow
+
+```mermaid
 graph TD
-    A[<icon>edit_document</icon> Write / Update .md Documents] --> B;
-    B[<icon>settings</icon> Run MkDocs Local Preview] --> C;
-    C[<icon>commit</icon> Commit & Git Push to Main] --> D;
-    D[<icon>deployment</icon> GitHub Pages Deployment (Automatic)] --> E;
-    E[<icon>public</icon> Live Documentation];
+
+    A["📝 Write / Update .md Documents"] --> B
+    B["⚙️ Run MkDocs Local Preview"] --> C
+    C["📤 Commit & Git Push to Main"] --> D
+    D["🚀 GitHub Pages Deployment (Automatic)"] --> E
+    E["🌐 Live Documentation"]
 
     style A fill:#E0F7FA, stroke:#00BCD4, stroke-width:2px, color:#000
     style B fill:#FFFDE7, stroke:#FFEB3B, stroke-width:2px, color:#000
@@ -77,7 +81,7 @@ graph TD
     style D fill:#F3E5F5, stroke:#9C27B0, stroke-width:2px, color:#000
     style E fill:#DCEDC8, stroke:#8BC34A, stroke-width:2px, color:#000
 
-            User View: https://umbe-lab.github.io/CityBEM-Docs/
+User View: https://umbe-lab.github.io/CityBEM-Docs/
 
 ------------------------------------------------------------------------
 
