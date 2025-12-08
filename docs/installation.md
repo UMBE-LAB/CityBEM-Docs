@@ -1,14 +1,14 @@
-# :material-cog-outline: CityBEM V2 Installation and Build Guide
+## :material-cog-outline: CityBEM V2 Installation
 
-CityBEM V2 is a high-performance city-scale simulation framework implemented in modern **C++17** and compiled using **Microsoft Visual Studio 2022 (MSVC v143)**. This comprehensive guide details the setup, compilation, and execution of the solver, including optional Python utilities.
+CityBEM V2 is a high-performance city-scale simulation framework implemented in modern C++17 and compiled using Microsoft Visual Studio 2022 (MSVC v143). This comprehensive guide details the setup, compilation, and execution of the solver, including optional Python utilities.
 
 ---
 
-## 1. Core Requirements & Environment Setup
+## 1. Core Requirements
 
 To successfully build the C++ solver from source, the following software and precise configurations are mandatory:
 
-### :material-laptop: Development Environment
+<span style="font-size: 1.2em;">:material-laptop: Development Environment</span><br>
 
 | Requirement | Details |
 | :--- | :--- |
@@ -31,7 +31,7 @@ To successfully build the C++ solver from source, the following software and pre
 
 Obtain the CityBEM V2 source code by cloning the repository using Git. This downloads the codebase from the remote server to your local machine.
 
-### :material-console-line: Cloning Steps
+<span style="font-size: 1.2em;">:material-console-line: Cloning Steps</span><br>
 
 1.  **Navigate to Path:** Open your preferred terminal (Git Bash, PowerShell, etc.) and use `cd` to navigate to your desired project directory (e.g., `Documents` or `Projects`).
     * *Example:*
@@ -57,7 +57,7 @@ Obtain the CityBEM V2 source code by cloning the repository using Git. This down
 
 ## :material-hammer-wrench: 3. Building the Executable
 
-### :material-cog-outline: Required Build Settings
+<span style="font-size: 1.2em;">:material-cog-outline: Required Build Settings</span><br>
 
 The following C++ settings, configured within Visual Studio, ensure optimal compilation and security:
 
@@ -72,7 +72,7 @@ The following C++ settings, configured within Visual Studio, ensure optimal comp
 
     Ensure **Git LFS (Large File Storage)** is properly configured. CityBEM V2 may rely on it for managing large binary files and data assets required during compilation.
 
-### :material-console-line: Build Execution
+<span style="font-size: 1.2em;">:material-console-line: Build Execution</span><br>
 
 1.  **Open Solution:** Launch **Visual Studio 2022** and open the solution file: `CityBEM.sln`.
 2.  **Select Configuration:** Choose either **`Release | x64`** (recommended for simulation speed) or **`Debug | x64`** (for development and troubleshooting).
@@ -88,7 +88,7 @@ The compiled solver executable will be found in the designated output folder (e.
 
 The executable requires all necessary input files to be located **in the same directory** as the solver for the simulation to run correctly.
 
-### :material-console-line: Execution Steps
+<span style="font-size: 1.2em;">:material-console-line: Execution Steps</span><br>
 
 1.  **Preparation:** Copy all required simulation input files (configuration, scenario data, etc.) into the executable's build directory (e.g., `/out/build/x64-Release/`).
 2.  **Navigate Terminal:** Use `cd` to change the working directory to the executable's location.
@@ -99,19 +99,19 @@ The executable requires all necessary input files to be located **in the same di
 
 ---
 
-## :material-language-python: 5. Optional: Python Tools for Automation & Analysis
+## :material-language-python: 5. Python Tools for Automation
 
 Integrating Python provides powerful capabilities for advanced data analysis, workflow automation, and visualization of CityBEM V2 results.
 
-### :material-function: Python Tool Capabilities
+<span style="font-size: 1.2em;">:material-function: Python Tool Capabilities</span><br>
 
 * **Input Pre-processing** and **Batch Simulation Automation**.
 * **Time-Series and Spatial Post-processing** (analysis of outputs like energy fluxes).
 * **Optional 3D Visualization** using specialized libraries.
 
-### :material-wrench-outline: Installation and Setup
+<span style="font-size: 1.2em;">:material-wrench-outline: Installation and Setup</span><br>
 
-#### :material-language-python: Install Python 3.10+
+<span style="font-size: 1.1em;">:material-language-python: Install Python 3.10+</span><br>
 
 1.  **Requirement:** Python version **3.10 or newer** is required.
 
@@ -125,7 +125,7 @@ Integrating Python provides powerful capabilities for advanced data analysis, wo
 
     During installation, ensure you check the box **"Add python.exe to PATH"**.
 
-#### Install Required Libraries
+<span style="font-size: 1.1em;">Install Required Libraries</span><br>
 
 * **Open Terminal** and run the following command to install the recommended packages:
 
@@ -143,7 +143,7 @@ Integrating Python provides powerful capabilities for advanced data analysis, wo
 
 If you are **contributing to the CityBEM V2 documentation** or wish to view it locally before deployment, install the necessary tools and run the local server.
 
-### :material-wrench-outline: Installation and Serving
+<span style="font-size: 1.2em;">:material-wrench-outline: Installation and Serving</span><br>
 
 1.  **Install Package:** Install MkDocs with the Material theme using `pip`:
     ```bash
