@@ -64,25 +64,20 @@ CityBEM-Docs/
 ------------------------------------------------------------------------
 ## 🔄 Documentation Workflow
 
----
-## <icon>autorenew</icon> Documentation Workflow
-
-### **Flowchart**
-
 ```mermaid
 graph TD
+
     A["Write / Update .md Documents"] --> B
     B["Run MkDocs Local Preview"] --> C
     C["Commit & Git Push to Main"] --> D
     D["GitHub Pages Deployment (Automatic)"] --> E
     E["Live Documentation"]
 
-    style A fill:#E0F7FA, stroke:#00BCD4, stroke-width:2px, color:#000
-    style B fill:#FFFDE7, stroke:#FFEB3B, stroke-width:2px, color:#000
-    style C fill:#E8EAF6, stroke:#3F51B5, stroke-width:2px, color:#000
-    style D fill:#F3E5F5, stroke:#9C27B0, stroke-width:2px, color:#000
-    style E fill:#DCEDC8, stroke:#8BC34A, stroke-width:2px, color:#000
+    %% Professional neutral theme
+    classDef node fill:#f8f9fa,stroke:#444,stroke-width:1.2px,color:#000,border-radius:4px;
+    class A,B,C,D,E node;
 ```
+
 ------------------------------------------------------------------------
 
 ## 🚀 How to Use This Repository
