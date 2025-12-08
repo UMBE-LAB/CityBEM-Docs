@@ -64,29 +64,19 @@ CityBEM-Docs/
 ------------------------------------------------------------------------
 ## 🔄 Documentation Workflow
 
-                +------------------+
-                |  Write / Update  |
-                |  .md Documents   |
-                +---------+--------+
-                          |
-                          v
-                +------------------+
-                |   MkDocs Builds  |
-                |   Static Pages   |
-                +---------+--------+
-                          |
-                          v
-                +------------------+
-                | Git Push to Main |
-                +---------+--------+
-                          |
-                          v
-                +---------------------------+
-                | GitHub Pages Deployment   |
-                | (Automatic via Workflow)  |
-                +---------------------------+
+This process ensures changes made to the documentation locally are correctly built and deployed to the live website.
 
-            User View: https://umbe-lab.github.io/CityBEM-Docs/
+| Step | Action | Details |
+| :--- | :--- | :--- |
+| **1. <icon>edit_document</icon>** | **Write / Update Content** | Edit `.md` files in the **`docs/`** folder. Place new images and assets in **`docs/assets/`**. (Always use **lowercase** for asset filenames to prevent deployment errors.) |
+| **2. <icon>preview</icon>** | **Local Preview** (Optional) | Run `mkdocs serve` in your terminal to view changes in real-time before committing. Access the site at `http://127.0.0.1:8000`. |
+| **3. <icon>commit</icon>** | **Commit & Push** | Use `git add .`, followed by `git commit -m "Your message"`, and finally `git push origin main` to send changes to the remote repository. |
+| **4. <icon>deployment</icon>** | **Automated Deployment** | A GitHub Pages (or similar) workflow detects the push to `main`, automatically builds the MkDocs site, and handles the publishing process. |
+| **5. <icon>public</icon>** | **Live Documentation** | The updated documentation becomes publicly available for users to view. |
+
+### **<icon>link</icon> Live Site Link**
+
+**User View:** `https://umbe-lab.github.io/CityBEM-Docs/`
 
 ------------------------------------------------------------------------
 
