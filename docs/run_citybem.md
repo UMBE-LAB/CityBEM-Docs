@@ -4,12 +4,12 @@ CityBEM V2 provides a **fast, robust, and highly scalable execution workflow** f
 
 ---
 
-## :material-play-circle-outline: 1. Running the CityBEM Simulation
+## :material-play-circle-outline: 1. Running the model
 
 
 This section details the steps required to execute the compiled CityBEM model and outlines the necessary folder structure for a successful simulation run.
 
-### :material-code-tags: 1. Simulation Setup and Execution
+<span style="font-size: 1.2em;">:material-code-tags: 1. Simulation Setup and Execution</span><br>
 
 Once the CityBEM V2 source code is compiled, the build process generates the executable: `CityBEM.exe`.
 
@@ -26,7 +26,7 @@ Then, simply run the executable using the command line:
 
 CityBEM will automatically load all necessary input files and commence the simulation, generating output files directly in this directory.
 
-### :material-folder-open: 2. Required Folder Structure
+<span style="font-size: 1.2em;">:material-folder-open: 2. Required Input Structure</span><br>
 
 A well-organized directory is essential for running CityBEM successfully.  
 
@@ -80,7 +80,7 @@ MySimulation/
 
 ---
 
-## :material-rocket: 3. Simulation of Large Urban Regions
+## :material-rocket: 3. Processing Large Urban Regions
 
 CityBEM V2 is extremely efficient—**about 2 seconds per building** for a full-year simulation (depending on CPU performance and enabled modules).  
 However, for very large geometries (50k–300k+ buildings), **parallel execution** is recommended.
