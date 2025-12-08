@@ -1,6 +1,6 @@
 # CityBEM-Docs
 
-This repository hosts the public documentation for **CityBEM**, a
+This repository hosts the public documentation for CityBEM V2, a
 flexible and scalable Urban Building Energy Modeling (UBEM) framework
 designed for large-area, high-resolution simulations.\
 It includes user guides, data schemas, PV workflow documentation,
