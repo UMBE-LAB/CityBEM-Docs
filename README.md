@@ -67,11 +67,11 @@ CityBEM-Docs/
 ```mermaid
 graph TD
 
-    A["Write / Update .md Documents"] --> B
+    A["Write/Update .md Documents"] --> B
     B["Run MkDocs Local Preview"] --> C
     C["Commit & Git Push to Main"] --> D
     D["GitHub Pages Deployment (Automatic)"] --> E
-    E["Live Documentation"]
+    E["See The Live Documentation"]
 
     %% Professional neutral theme
     classDef node fill:#f8f9fa,stroke:#444,stroke-width:1.2px,color:#000,border-radius:4px;
