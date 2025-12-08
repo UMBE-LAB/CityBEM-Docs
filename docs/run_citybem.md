@@ -4,89 +4,95 @@ CityBEM V2 provides a **fast, robust, and highly scalable execution workflow** f
 
 ---
 
-## :material-play-circle-outline: 1. Running the CityBEM Executable
+## :material-play-circle-outline: 1. Running the CityBEM Simulation
 
-Once the CityBEM V2 source code is compiled, the build process generates the executable:
 
-```
-CityBEM.exe
-```
+This section details the steps required to execute the compiled CityBEM model and outlines the necessary folder structure for a successful simulation run.
 
-To run the model:
+### :material-code-tags: 1. Simulation Setup and Execution
 
-1. Place the executable in a working directory.
-2. Ensure that **all required input files** are located in the *same directory*:
-    - `Input_City_Scale_Archetype_Construction_Materials_General.txt`
-    - `Input_City_Scale_Archetype_Energy_Source.txt`
-    - `Input_City_Scale_Archetype_External_Wall_Material.txt`
-    - `Input_City_Scale_Archetype_IHG.txt`
-    - `Input_City_Scale_Archetype_Slabs_Material.txt`
-    - `Input_City_Scale_Archetype_Usage_Type.txt`
-    - `Input_City_Scale_Archetype_Year.txt`
-    - `Input_City_Scale_Building_Info.txt`
-    - `Input_City_Scale_Geometry_CityBEM.stl`
-    - `Input_City_Scale_Result_Selection.txt`
-    - `Input_City_Scale_Settings.txt`
-    - `Input_City_Scale_Cosine_Zenith.txt`
-    - `Input_City_Scale_Greenroof_Simulation.txt`
-    - `Input_City_Scale_RooftopPV_Panel.txt`
-    - `Input_City_Scale_General_Settings.txt`
-    - `Input_City_Scale_Parameters_For_RooftopPV_Panel.txt`
-    - `Input_City_Scale_Weather_Data.txt`
+Once the CityBEM V2 source code is compiled, the build process generates the executable: `CityBEM.exe`.
 
-Then simply run:
+To successfully run the model, you must adhere to the following setup:
 
-```
+1.  Place the `CityBEM.exe` executable in an empty working directory (e.g., `MySimulation/`).
+2.  Ensure that **all required input files** are located in the *same working directory*.
+
+Then, simply run the executable using the command line:
+
+```bash
 ./CityBEM.exe
 ```
 
-CityBEM will automatically load all necessary files and start the simulation.
+CityBEM will automatically load all necessary input files and commence the simulation, generating output files directly in this directory.
 
----
+### :material-folder-open: 2. Required Folder Structure
 
-## :material-puzzle: 2. Folder Structure for Running Simulations
+A well-organized directory is essential for running CityBEM successfully.  
 
-A typical directory for running simulations should look like this:
+Your simulation folder should follow this structure:
 
 ```
 MySimulation/
 │── CityBEM.exe
-│── Input_City_scale_archetype_construction_materials_general.txt
-│── Input_City_scale_archetype_energy_source.txt
-│── Input_City_scale_archetype_external_wall_material.txt
-│── Input_City_scale_archetype_IHG.txt
-│── Input_City_scale_archetype_slabs_material.txt
-│── Input_City_scale_archetype_usage_type.txt
-│── Input_City_scale_archetype_year.txt
-│── Input_City_scale_building_info.txt
-│── Input_City_scale_geometry_CityBEM.stl
-│── Input_City_scale_result_selection.txt
-│── Input_City_scale_settings.txt
-│── Input_cosine_zenith.txt
-│── Input_data_for_greenroof_simulation.txt
-│── Input_data_for_rooftopPV_panel.txt
-│── Input_general_settings.txt
-│── Input_parameters_for_rooftopPV_panel.txt
-│── Input_weatherdata.txt
-└── (Output files generated here)
+│
+├── Archetype & Building Inputs
+│   │── Input_City_scale_archetype_construction_materials_general.txt
+│   │── Input_City_scale_archetype_energy_source.txt
+│   │── Input_City_scale_archetype_external_wall_material.txt
+│   │── Input_City_scale_archetype_IHG.txt
+│   │── Input_City_scale_archetype_slabs_material.txt
+│   │── Input_City_scale_archetype_usage_type.txt
+│   │── Input_City_scale_archetype_year.txt
+│   │── Input_City_scale_building_info.txt
+│   │── input_comprehensive_building_data_CityLayer.txt
+│   │── Input_indoor_setpoint_temperature_CityLayer.txt
+│   │── Input_internal_heat_gain_CityLayer.txt
+│
+│
+├── Geometry Files
+│   │── Input_City_scale_geometry_CityBEM.stl
+│
+│
+├── Settings
+│   │── Input_City_scale_settings.txt
+│   │── Input_general_settings.txt
+│   │── SRA_settings.txt
+│
+│
+├── Simulation Options
+│   │── Input_City_scale_result_selection.txt
+│   │── Input_data_for_greenroof_simulation.txt
+│   │── Input_data_for_rooftopPV_panel_and_economical_analysis.txt
+│   │── Input_parameters_for_rooftopPV_panel.txt
+│
+│
+├── Weather Data
+│   │── Input_weatherdata.txt
+│   │── Input_cosine_zenith.txt
+│
+├── CFD / CityFFD Coupling Files (if used)
+│   │── Input_CityFFD_microclimate.txt
+│
+│
+└── **(Output files generated here after running the simulation)**
 ```
-
-CityBEM automatically creates output files based on your Result Selection file.
 
 ---
 
-## :material-rocket: 3. Running CityBEM for Large Urban Regions
+## :material-rocket: 3. Simulation of Large Urban Regions
 
 CityBEM V2 is extremely efficient—**about 2 seconds per building** for a full-year simulation (depending on CPU performance and enabled modules).  
 However, for very large geometries (50k–300k+ buildings), **parallel execution** is recommended.
 
 ---
 
-## :material-threads-multiple: 4. Parallel Multi-Directory Workflow (Recommended)
+**:material-share-variant: Parallel Multi-Directory Workflow (Recommended)**
 
 To run several segments of a large urban area in parallel:
 
-### **Step 1 — Divide the geometry**
+Step 1 — Divide the geometry
+
 Split your STL geometry into multiple segments, e.g.:
 
 ```
@@ -100,7 +106,7 @@ Each file represents a region of your city.
 
 ---
 
-### **Step 2 — Create separate directories**
+Step 2 — Create separate directories
 
 For each region:
 
@@ -120,7 +126,9 @@ Each directory becomes an independent simulation environment.
 
 ---
 
-### **:material-cog-play: Step 3 — Use Python to automate parallel runs**
+:material-cog-play: Step 3 — Use Python to automate parallel runs
+
+The workflow below shows the process for running CityBEM in parallel across multiple directories.
 
 <figure markdown>
   ![Parallel Simulation Workflow](assets/run_citybem_parallel_workflow.png){ width="50%" loading=lazy }
@@ -202,7 +210,7 @@ This launches **multiple CPU cores** running multiple CityBEM simulations simult
 
 ---
 
-## :material-city: 5. Scaling to 300,000+ Buildings
+## :material-city: 4. Scaling to 300,000+ Buildings
 
 Using the multi-directory parallel approach, CityBEM can simulate **entire cities** efficiently:
 
@@ -214,7 +222,7 @@ At ~2 seconds per building, even massive metropolitan regions become computable.
 
 ---
 
-## :material-upload: 6. After Running — Where Are the Results?
+## :material-upload: 5. After Running
 
 Each directory will generate:
 
@@ -228,7 +236,7 @@ These outputs can be directly visualized or imported into GIS dashboards, Python
 
 ---
 
-## :material-target: Summary
+## :material-target: 6. Summary
 
 CityBEM V2 offers:
 
