@@ -1,4 +1,4 @@
-# :material-file-chart: Model Outputs
+## :material-file-chart: Model Outputs
 
 CityBEM V2 includes a **modular, configurable, and scalable** output-generation system designed for large urban simulations.  
 Users can flexibly choose which variables to export to support storage efficiency, visualization workflows, and large-scale scenario analysis.
@@ -18,13 +18,13 @@ This structure provides full customization over how simulation data is recorded 
 
 ---
 
-## :material-file-table-box-multiple: Output Modes
+## :material-file-table-box-multiple: 1. Output Modes
 
 CityBEM supports two complementary output-generation modes.
 
 ---
 
-### :material-file-document-outline: Single Output File
+<span style="font-size: 1.2em;">:material-file-document-outline: Single Output File Mode</span><br>
 
 A unified file is produced containing **all buildings** in the simulation domain.
 
@@ -44,7 +44,7 @@ A unified file is produced containing **all buildings** in the simulation domain
 
 ---
 
-### :material-file-multiple: Separate Files
+<span style="font-size: 1.2em;">:material-file-multiple: Separate Output Files Mode</span><br>
 
 Each activated variable is exported to its **own transient file**, enabling fine-grained control and lightweight visualization.
 
@@ -64,7 +64,7 @@ Each activated variable is exported to its **own transient file**, enabling fine
 
 ---
 
-## :material-table: Output Variable Index
+## :material-table: 2. Output Variables
 
 CityBEM V2 provides an extensive set of output variables to support various analyses, including thermal behavior, solar radiation, photovoltaic generation, and microclimate interactions.
 
@@ -80,10 +80,8 @@ Use:
 - **N** → Disable output  
 
 ---
-
-### :material-format-list-bulleted-type: Output Variables
-
-## **Outputs Table**
+ 
+<span style="font-size: 1.2em;">:material-format-list-bulleted-type: Output Selection Variables Table</span><br>
 
 <table>
   <thead>
@@ -177,7 +175,7 @@ Use:
 
 ---
 
-## :material-cog-outline: Notes & Recommendations
+## :material-cog-outline: 3. Notes & Recommendations
 
 - The output engine is optimized for **large datasets** (50,000+ buildings).  
 - Selecting only required variables reduces output size and improves performance.  
