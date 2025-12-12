@@ -31,7 +31,6 @@ nav:
   - Outputs: outputs.md
   - Building Energy Modeling: building_energy_modeling.md
   - Rooftop PV Modeling: pv_model.md
-  - Microclimate Co-Simulation: microclimate.md
   - Test Cases: examples.md
   - Publications: publications.md
   - About Us: about.md

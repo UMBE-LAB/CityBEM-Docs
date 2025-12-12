@@ -2,7 +2,7 @@
 
 Welcome to the official documentation of CityBEM V2 (City Building Energy Model V2) — an advanced, lightweight, and scalable Urban Building Energy Modeling (UBEM) framework designed for high-resolution, city-scale simulations with outstanding computational efficiency.
 
-**CityBEM V2**
+## CityBEM V2
 
 <figure markdown>
   ![CityBEM city-scale simulation](assets/citybem_overview.png){ width="100%" loading=lazy }

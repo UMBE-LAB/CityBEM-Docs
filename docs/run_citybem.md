@@ -1,4 +1,4 @@
-## Run CityBEM V2
+# Run CityBEM V2
 
 CityBEM V2 provides a **fast, robust, and highly scalable execution workflow** for running large-scale UBEM simulations ranging from a few buildings to entire metropolitan regions (300,000+ buildings). This guide explains how to run the executable, manage input files, and scale simulations using parallel workflows.
 

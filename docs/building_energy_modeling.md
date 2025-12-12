@@ -1,4 +1,4 @@
-## Building Energy Modeling
+# Building Energy Modeling
 
 CityBEM performs transient building thermal modeling to estimate heating, cooling, and total energy consumption for large urban building stocks.  
 This page provides a detailed explanation of the physical models, mathematical formulations, and numerical structure used in CityBEM.

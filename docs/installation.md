@@ -1,4 +1,4 @@
-## :material-cog-outline: CityBEM V2 Installation
+# :material-cog-outline: CityBEM V2 Installation
 
 CityBEM V2 is a high-performance city-scale simulation framework implemented in modern C++17 and compiled using Microsoft Visual Studio 2022 (MSVC v143). This comprehensive guide details the setup, compilation, and execution of the solver, including optional Python utilities.
 
