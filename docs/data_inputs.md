@@ -19,11 +19,10 @@ This workflow captures the full input-management pipeline in CityBEM — from GI
 !!! info ""
     🏢 Assigns thermal, material, occupancy, and HVAC characteristics to each building through archetype mapping.
 
- 
 <span style="font-size: 1.2em;">3D Geometry Processing</span>
 !!! info ""
     📐 Computes surface geometry (area, tilt, azimuth, façade grouping, roof type) required for thermal and solar modeling.
- 
+
 <span style="font-size: 1.2em;">Weather Data Preparation</span>
 !!! info ""
     🌦️ Converts hourly meteorological data to the simulation time step and prepares dynamic boundary conditions.
@@ -148,6 +147,7 @@ Below are recommended platforms to help users **generate, edit, or validate** bu
 ---
 
 ## 2. Building Stock Input Data
+
 :material-file-document-outline: File Reference: `Input_City_scale_building_info.txt`
 
 <figure markdown>
@@ -301,9 +301,9 @@ This script uses **QGIS core libraries** and **Pandas** to sample raster data at
 <span style="font-size: 1.2em;">Usefulness of the Script</span><br>
 This tool is invaluable for creating realistic simulation inputs:
 
-* **Automation:** It eliminates manual point sampling within GIS software for hundreds or thousands of buildings.
-* **Data Integration:** It automates the transfer of geographical data (e.g., average surface temperature at a building's location) directly into your simulation input tables.
-* **Scalability:** It is essential for generating large input files needed for city-scale simulations.
+- **Automation:** It eliminates manual point sampling within GIS software for hundreds or thousands of buildings.
+- **Data Integration:** It automates the transfer of geographical data (e.g., average surface temperature at a building's location) directly into your simulation input tables.
+- **Scalability:** It is essential for generating large input files needed for city-scale simulations.
 
 **:material-console-line: Note on Usage and Capabilities**
 
@@ -313,8 +313,8 @@ This tool is invaluable for creating realistic simulation inputs:
 
 Beyond simple raster sampling, similar PyQGIS scripts can be used for advanced tasks, including:
 
-* **Data Extraction from GeoJSON/Shapefiles:** Extracting attributes (e.g., building age, height, usage type) from vector data (like city building footprints) by querying their coordinates or boundaries.
-* **Data Manipulation and Joining:** Performing complex spatial joins and data preparation tasks on imported vector and raster layers directly within the QGIS environment.
+- **Data Extraction from GeoJSON/Shapefiles:** Extracting attributes (e.g., building age, height, usage type) from vector data (like city building footprints) by querying their coordinates or boundaries.
+- **Data Manipulation and Joining:** Performing complex spatial joins and data preparation tasks on imported vector and raster layers directly within the QGIS environment.
 
 **Example QGIS Python API Script**
 
@@ -430,6 +430,7 @@ CityBEM V2 uses multiple archetype dimensions to describe buildings:
 ---
 
 ### 3.1 Construction Archetypes  
+
 :material-file-document-outline: File Reference: `Input_City_scale_archetype_year.txt`
 
 <figure markdown>
@@ -487,7 +488,7 @@ The construction-year archetype defines effective thermal characteristics used f
 - Heat capacity (Cp, J/kg·K)  
 - Density (ρ, kg/m³)  
 - Effective thermal mass layer thickness  
-- Shortwave absorptance (α) 
+- Shortwave absorptance (α)
 - Longwave emissivity (ε)
 
 **These govern**:
@@ -521,6 +522,7 @@ This ensures **consistent, scalable, and physically meaningful** building charac
 ---
 
 ### 3.2 Usage Type Archetype  
+
 :material-file-document-outline: File Reference: `Input_City_scale_archetype_usage_type.txt`
 
 <figure markdown>
@@ -577,7 +579,7 @@ CityBEM uses this file to assign realistic operational profiles to each building
 
 These archetypes strongly influence:
 
-- Annual heating/cooling energy demand 
+- Annual heating/cooling energy demand
 - Peak loads  
 - Indoor thermal comfort
 
@@ -586,6 +588,7 @@ They define the operational identity of each building in the simulation.
 ---
 
 ### 3.3 Internal Heat Gains  
+
 :material-file-document-outline: File Reference: `Input_City_scale_archetype_IHG.txt`
 
 <figure markdown>
@@ -632,6 +635,7 @@ Each row corresponds to an **IHG case**, which can be linked to a usage-type arc
 
 - Fractional occupancy schedules  
 - Sensible heat gain per person (W/person)  
+
 </div>
 
 <div class="card" markdown="1">
@@ -639,6 +643,7 @@ Each row corresponds to an **IHG case**, which can be linked to a usage-type arc
 
 - Equipment load schedules  
 - Maximum plug/equipment density (W/m²)
+
 </div>
 
 <div class="card" markdown="1">
@@ -646,6 +651,7 @@ Each row corresponds to an **IHG case**, which can be linked to a usage-type arc
 
 - Lighting schedules  
 - Lighting power density (W/m²)
+
 </div>
 
 </div>
@@ -670,11 +676,13 @@ Accurate IHG profiles are critical for reproducing:
 - HVAC heating/cooling loads  
 - Peak electricity demand  
 - Differences between weekdays, weekends, and seasonal periods  
+
 </div>
 
 ---
 
 ### 3.4 :material-layers: Slab Material
+
 :material-file-document-outline: File Reference: `Input_City_scale_archetype_slabs_material.txt`
 
 <figure markdown>
@@ -711,14 +719,15 @@ The file currently defines materials and their corresponding thicknesses, allowi
 
 This data structure is foundational to the following calculation steps (pending full feature implementation):
 
-* **Mass Quantification:** Converting geometric dimensions (from the building model) and layer thicknesses (from this file) into the total physical mass (kg or tonnes) of construction materials.
-* **Embodied Emission Calculation:** Applying specific Embodied Carbon Factors (kgCO₂e/kg) to the calculated material mass to determine the upfront carbon footprint of the building stock.
+- **Mass Quantification:** Converting geometric dimensions (from the building model) and layer thicknesses (from this file) into the total physical mass (kg or tonnes) of construction materials.
+- **Embodied Emission Calculation:** Applying specific Embodied Carbon Factors (kgCO₂e/kg) to the calculated material mass to determine the upfront carbon footprint of the building stock.
 
 This will ultimately enable CityBEM V2 to compare retrofitting scenarios based on both operational energy and embodied emissions.
 
 ---
 
 ### 3.5 :material-wall: External Wall
+
 :material-file-document-outline: File Reference: `Input_City_scale_archetype_external_wall_material.txt`
 
 <figure markdown>
@@ -743,6 +752,7 @@ The file defines the internal structure of wall archetypes by listing component 
 ---
 
 ### 3.6 Construction Materials  
+
 :material-file-document-outline: File Reference: `Input_City_scale_archetype_construction_materials_general.txt`
 
 <figure markdown>
@@ -756,7 +766,7 @@ Its goal is to create an **inventory of construction materials** commonly used a
 Once completed, it will allow CityBEM to:
 
 - Identify which materials are present in each building envelope element  
-- Estimate material quantities and total weight 
+- Estimate material quantities and total weight
 - Compute embodied greenhouse gas (GHG) emissions for each building and for city-wide retrofitting scenarios  
 
 This dataset will act as the foundation for future **embodied emissions modeling** within CityBEM.
@@ -782,6 +792,7 @@ This dataset will act as the foundation for future **embodied emissions modeling
 ---
 
 ### 3.7 :material-power-socket-eu: Energy Sources Archetype
+
 :material-file-document-outline: File Reference: `Input_City_scale_archetype_energy_source.txt`
 
 <figure markdown>
@@ -809,8 +820,8 @@ The file structures the simulation environment by defining the following for eac
 
 After CityBEM computes the building energy demand and required HVAC consumption, this data is applied for two critical functions:
 
-1.  **Carrier Assignment:** Each end-use energy flow is mapped to the specified energy carrier defined in this file.
-2.  **GHG Computation:** The corresponding **emission factors** are applied to the flow to compute time-resolved and aggregated annual GHG emission metrics.
+1. **Carrier Assignment:** Each end-use energy flow is mapped to the specified energy carrier defined in this file.
+2. **GHG Computation:** The corresponding **emission factors** are applied to the flow to compute time-resolved and aggregated annual GHG emission metrics.
 
 !!! tip "Carbon Footprint Analysis"
 
@@ -819,6 +830,7 @@ After CityBEM computes the building energy demand and required HVAC consumption,
 ---
 
 ## 4. :material-weather-cloudy: Weather Data
+
 :material-file-document-outline: File Reference: `Input_weatherdata.txt`
 
 <figure markdown>
@@ -1023,7 +1035,6 @@ Wind data supports:
 - Infiltration + natural ventilation models  
 - Microclimate coupling simulation (if enabled)
 
-
 <span style="font-size: 1.2em;">:material-note-text-outline: Summary</span><br>
 
 !!! note "material-wrench-outline: Key Notes"
@@ -1036,6 +1047,7 @@ Wind data supports:
 ---
 
 ## 5. Solar Position Input
+
 :material-file-document-outline: File Reference: `Input_cosine_zenith.txt`
 
 <figure markdown>
@@ -1185,6 +1197,7 @@ This file defines the **central configuration parameters** used to control CityB
 ---
 
 ## 7. Result Selection
+
 :material-file-document-outline: File Reference: `Input_City_scale_result_selection.txt`
 
 <figure markdown>
