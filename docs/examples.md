@@ -1,5 +1,7 @@
 # Test Cases
 
+## :material-lightbulb-on-outline: Test Case Highlights
+
 CityBEM has been rigorously validated through a series of real-world test cases,  
 demonstrating its powerful capabilities in:
 
