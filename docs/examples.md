@@ -3,9 +3,9 @@
 CityBEM has been rigorously validated through a series of real-world test cases,  
 demonstrating its powerful capabilities in:
 
-✓ **City-scale transient building energy simulation**  
-✓ **Rooftop PV modeling** with detailed electrical physics  
-✓ **Inter-building analysis**
+✓ City-scale transient building energy simulation
+✓ Rooftop PV modeling with detailed electrical physics  
+✓ Inter-building analysis
 
 These cases highlight CityBEM’s **speed** and **scalability**, validated against  
 published benchmarks and real-world performance data.
